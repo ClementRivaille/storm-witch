@@ -1,9 +1,13 @@
-[gd_scene load_steps=8 format=3 uid="uid://dywdey6v3mhec"]
+[gd_scene load_steps=12 format=3 uid="uid://dywdey6v3mhec"]
 
 [ext_resource type="Texture2D" uid="uid://d2iba3hllntgx" path="res://assets/textures/field_1.png" id="1_sbwsi"]
 [ext_resource type="Texture2D" uid="uid://bhy4q7epwruwk" path="res://assets/textures/sky_1.png" id="1_vue8f"]
 [ext_resource type="Texture2D" uid="uid://cj61jf5juy1ur" path="res://assets/sprites/particles/rain-drop_1.png" id="3_1wp1n"]
 [ext_resource type="Texture2D" uid="uid://bet7pwvijwvlk" path="res://assets/textures/grass.png" id="3_dur6k"]
+[ext_resource type="Script" path="res://scripts/ScrollBackground.gd" id="3_kvrr4"]
+[ext_resource type="Script" path="res://scripts/ScrollableLayer.gd" id="5_0pjhe"]
+[ext_resource type="Texture2D" uid="uid://yma457vwqck" path="res://assets/textures/field_2.png" id="7_p4d46"]
+[ext_resource type="Texture2D" uid="uid://bhincxiqfgn13" path="res://assets/textures/field_3.png" id="8_vmeyv"]
 
 [sub_resource type="Gradient" id="Gradient_2dxoe"]
 colors = PackedColorArray(1, 1, 1, 0.701961, 1, 1, 1, 1)
@@ -15,7 +19,7 @@ gradient = SubResource("Gradient_2dxoe")
 emission_shape = 3
 emission_box_extents = Vector3(900, 1, 0)
 particle_flag_disable_z = true
-direction = Vector3(-0.1, 1, 0)
+direction = Vector3(-0.5, 1, 0)
 spread = 0.0
 gravity = Vector3(0, 100, 0)
 initial_velocity_min = 900.0
@@ -32,16 +36,6 @@ attractor_interaction_enabled = false
 texture_filter = 1
 texture_repeat = 2
 
-[node name="Sky" type="Node2D" parent="."]
-texture_filter = 2
-
-[node name="Sprite2D" type="Sprite2D" parent="Sky"]
-z_index = -1
-z_as_relative = false
-scale = Vector2(2.5, 2.5)
-texture = ExtResource("1_vue8f")
-centered = false
-
 [node name="DirectionalLight2D" type="DirectionalLight2D" parent="."]
 energy = 0.2
 blend_mode = 1
@@ -50,26 +44,38 @@ range_layer_max = 100
 height = 1.0
 max_distance = 720.0
 
-[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
-layer = 1
-follow_viewport_scale = 0.001
-
-[node name="Field1" type="ParallaxLayer" parent="ParallaxBackground"]
-motion_scale = Vector2(0.8, 0.8)
-
-[node name="Polygon2D" type="Polygon2D" parent="ParallaxBackground/Field1"]
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+modulate = Color(1, 1, 1, 0.929412)
+top_level = true
+z_index = 1
+z_as_relative = false
 texture_filter = 1
-texture_repeat = 2
-position = Vector2(0, 720)
+position = Vector2(900, 0)
+amount = 1000
+process_material = SubResource("ParticleProcessMaterial_mr0yl")
+texture = ExtResource("3_1wp1n")
+lifetime = 0.7
+visibility_rect = Rect2(-900, 0, 1800, 720)
+
+[node name="Sky" type="CanvasLayer" parent="."]
+layer = -10
+
+[node name="Sprite2D" type="Sprite2D" parent="Sky"]
+z_index = -1
+z_as_relative = false
 scale = Vector2(2.5, 2.5)
-antialiased = true
-texture = ExtResource("1_sbwsi")
-texture_offset = Vector2(0, -64)
-polygon = PackedVector2Array(0, 0, 1024, 0, 1024, -64, 0, -64)
+texture = ExtResource("1_vue8f")
+centered = false
 
-[node name="Grass" type="ParallaxLayer" parent="ParallaxBackground"]
+[node name="Background" type="Node2D" parent="."]
 
-[node name="Polygon2D" type="Polygon2D" parent="ParallaxBackground/Grass"]
+[node name="Level1" type="Node2D" parent="Background"]
+script = ExtResource("3_kvrr4")
+speed = 500.0
+
+[node name="Foreground" type="Node2D" parent="Background/Level1"]
+
+[node name="Grass" type="Polygon2D" parent="Background/Level1/Foreground"]
 texture_filter = 1
 texture_repeat = 2
 position = Vector2(0, 720)
@@ -79,22 +85,48 @@ texture = ExtResource("3_dur6k")
 texture_offset = Vector2(0, -14)
 polygon = PackedVector2Array(0, 0, 1024, 0, 1024, -14, 0, -14)
 
-[node name="Camera2D" type="Camera2D" parent="."]
-anchor_mode = 0
+[node name="Parallax" type="ParallaxBackground" parent="Background/Level1"]
+layer = -5
+scroll_ignore_camera_zoom = true
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
-layer = 2
+[node name="Field3" type="ParallaxLayer" parent="Background/Level1/Parallax"]
+motion_scale = Vector2(0.2, 0.2)
+script = ExtResource("5_0pjhe")
 
-[node name="GPUParticles2D" type="GPUParticles2D" parent="CanvasLayer"]
-modulate = Color(1, 1, 1, 0.929412)
-top_level = true
-z_index = 1
-z_as_relative = false
+[node name="Polygon2D" type="Polygon2D" parent="Background/Level1/Parallax/Field3"]
 texture_filter = 1
-position = Vector2(900, 0)
-emitting = false
-amount = 1000
-process_material = SubResource("ParticleProcessMaterial_mr0yl")
-texture = ExtResource("3_1wp1n")
-lifetime = 0.7
-visibility_rect = Rect2(-900, 0, 1800, 720)
+texture_repeat = 2
+position = Vector2(0, 720)
+scale = Vector2(2.5, 2.5)
+antialiased = true
+texture = ExtResource("8_vmeyv")
+texture_offset = Vector2(0, -158)
+polygon = PackedVector2Array(0, 0, 1024, 0, 1024, -158, 0, -158)
+
+[node name="Field2" type="ParallaxLayer" parent="Background/Level1/Parallax"]
+motion_scale = Vector2(0.5, 0.5)
+script = ExtResource("5_0pjhe")
+
+[node name="Polygon2D" type="Polygon2D" parent="Background/Level1/Parallax/Field2"]
+texture_filter = 1
+texture_repeat = 2
+position = Vector2(0, 720)
+scale = Vector2(2.5, 2.5)
+antialiased = true
+texture = ExtResource("7_p4d46")
+texture_offset = Vector2(0, -115)
+polygon = PackedVector2Array(0, 0, 1024, 0, 1024, -115, 0, -115)
+
+[node name="Field1" type="ParallaxLayer" parent="Background/Level1/Parallax"]
+motion_scale = Vector2(0.8, 0.8)
+script = ExtResource("5_0pjhe")
+
+[node name="Polygon2D" type="Polygon2D" parent="Background/Level1/Parallax/Field1"]
+texture_filter = 1
+texture_repeat = 2
+position = Vector2(0, 720)
+scale = Vector2(2.5, 2.5)
+antialiased = true
+texture = ExtResource("1_sbwsi")
+texture_offset = Vector2(0, -64)
+polygon = PackedVector2Array(0, 0, 1024, 0, 1024, -64, 0, -64)
