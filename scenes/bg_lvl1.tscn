@@ -1,0 +1,70 @@
+[gd_scene load_steps=7 format=3 uid="uid://86bl1vogmj8a"]
+
+[ext_resource type="Script" path="res://scripts/ScrollBackground.gd" id="1_t0mfe"]
+[ext_resource type="Texture2D" uid="uid://bet7pwvijwvlk" path="res://assets/textures/grass.png" id="2_magau"]
+[ext_resource type="Script" path="res://scripts/ScrollableLayer.gd" id="3_sdh2v"]
+[ext_resource type="Texture2D" uid="uid://bhincxiqfgn13" path="res://assets/textures/field_3.png" id="4_tvhjy"]
+[ext_resource type="Texture2D" uid="uid://yma457vwqck" path="res://assets/textures/field_2.png" id="5_rvf3j"]
+[ext_resource type="Texture2D" uid="uid://d2iba3hllntgx" path="res://assets/textures/field_1.png" id="6_hu5aq"]
+
+[node name="Level1" type="Node2D"]
+script = ExtResource("1_t0mfe")
+speed = 500.0
+
+[node name="Foreground" type="Node2D" parent="."]
+
+[node name="Grass" type="Polygon2D" parent="Foreground"]
+texture_filter = 1
+texture_repeat = 2
+position = Vector2(0, 720)
+scale = Vector2(2.5, 2.5)
+antialiased = true
+texture = ExtResource("2_magau")
+texture_offset = Vector2(0, -14)
+polygon = PackedVector2Array(0, 0, 1024, 0, 1024, -14, 0, -14)
+
+[node name="Parallax" type="ParallaxBackground" parent="."]
+layer = -5
+scroll_ignore_camera_zoom = true
+
+[node name="Field3" type="ParallaxLayer" parent="Parallax"]
+motion_scale = Vector2(0.2, 0.2)
+script = ExtResource("3_sdh2v")
+
+[node name="Polygon2D" type="Polygon2D" parent="Parallax/Field3"]
+texture_filter = 1
+texture_repeat = 2
+position = Vector2(0, 720)
+scale = Vector2(2.5, 2.5)
+antialiased = true
+texture = ExtResource("4_tvhjy")
+texture_offset = Vector2(0, -158)
+polygon = PackedVector2Array(0, 0, 1024, 0, 1024, -158, 0, -158)
+
+[node name="Field2" type="ParallaxLayer" parent="Parallax"]
+motion_scale = Vector2(0.5, 0.5)
+script = ExtResource("3_sdh2v")
+
+[node name="Polygon2D" type="Polygon2D" parent="Parallax/Field2"]
+texture_filter = 1
+texture_repeat = 2
+position = Vector2(0, 720)
+scale = Vector2(2.5, 2.5)
+antialiased = true
+texture = ExtResource("5_rvf3j")
+texture_offset = Vector2(0, -115)
+polygon = PackedVector2Array(0, 0, 1024, 0, 1024, -115, 0, -115)
+
+[node name="Field1" type="ParallaxLayer" parent="Parallax"]
+motion_scale = Vector2(0.8, 0.8)
+script = ExtResource("3_sdh2v")
+
+[node name="Polygon2D" type="Polygon2D" parent="Parallax/Field1"]
+texture_filter = 1
+texture_repeat = 2
+position = Vector2(0, 720)
+scale = Vector2(2.5, 2.5)
+antialiased = true
+texture = ExtResource("6_hu5aq")
+texture_offset = Vector2(0, -64)
+polygon = PackedVector2Array(0, 0, 1024, 0, 1024, -64, 0, -64)
