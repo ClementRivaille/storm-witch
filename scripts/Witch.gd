@@ -28,6 +28,9 @@ const SAFE_CHECK := 640.0
 @export var fall_through_limit: float = 450.0
 @export var fall_y_end: float = 200.0
 
+@export var angle_up: float = -40.0
+@export var angle_down: float = 60.0
+
 
 enum AnimationState {
   None,
@@ -45,12 +48,17 @@ var momentum: float = 0.0
 
 @onready var lock: Timer = $Lock
 @onready var debug: Label = $debug
+@onready var sprite: Sprite2D = $Sprite
 @onready var store: Store = StoreState
+@onready var animation_state_machine: AnimationNodeStateMachinePlayback
 
 signal collect_pearl
 signal fall
 signal rise_start
 signal rise_stop
+
+func _ready() -> void:
+  animation_state_machine = $AnimationTree.get("parameters/playback")
 
 func _physics_process(_delta: float) -> void:
   if animation == AnimationState.None:
@@ -88,10 +96,12 @@ func steer_broom():
   if direction && !locked:
     if direction > 0:
       # down
+      animation_state_machine.travel(("SteerDown"))
       if absf(velocity.y) < max_speed:
         velocity.y = velocity.y + acceleration
     else:
       # up
+      animation_state_machine.travel("SteerUp")
       velocity.y = maxf(velocity.y - acceleration - momentum_speed * momentum, - speed_up - max_speed * momentum)
   
   # Lose velocity when not moving
@@ -99,6 +109,9 @@ func steer_broom():
     velocity.y = velocity.y * deceleration_factor
     if absf(velocity.y) < 0.0000001:
       velocity.y = 0.0
+      
+  if !direction && !locked:
+    animation_state_machine.travel("Idle")
 
 func _input(event: InputEvent) -> void:
   if event.is_action_pressed("jump") && !locked && animation == AnimationState.None:
@@ -133,9 +146,11 @@ func rise_auto():
   velocity.y = velocity.y + acceleration * (1 if down else -1)
   
   if animation == AnimationState.Recentering:
+    animation_state_machine.travel(("SteerDown"))
     if global_position.y >= rise_y_threshold:
       animation = AnimationState.ExitUp
   elif animation == AnimationState.ExitUp:
+    animation_state_machine.travel("SteerUp")
     velocity.y = maxf(velocity.y, -rise_speed)
     if global_position.y < rise_y_limit:
       # warp down
@@ -143,6 +158,7 @@ func rise_auto():
       animation = AnimationState.EnteringUp
       store.levelup()
   elif animation == AnimationState.EnteringUp:
+    animation_state_machine.travel("SteerUp")
     velocity.y = maxf(velocity.y, -rise_speed)
     if (global_position.y <= rise_y_end):
       set_collision_mask_value(COLLISION_LAYER, true)
@@ -156,7 +172,8 @@ func fall_auto():
     if store.can_jump() && global_position.y >= SAFE_CHECK:
       jump()
       animation = AnimationState.None
-      set_collision_mask_value(COLLISION_LAYER, true)      
+      set_collision_mask_value(COLLISION_LAYER, true)
+      animation_state_machine.travel("Idle")
     if global_position.y >= get_viewport_rect().size.y - rise_y_limit:
       position.y = rise_y_limit
       animation = AnimationState.EnteringDown
@@ -164,6 +181,7 @@ func fall_auto():
   elif animation == AnimationState.EnteringDown:
     if global_position.y >= fall_y_end:
       set_collision_mask_value(COLLISION_LAYER, true)
+      animation_state_machine.travel("Idle")
       animation = AnimationState.None
 
 func on_collider_body_entered(body: Node2D) -> void:
@@ -179,6 +197,7 @@ func on_collider_body_entered(body: Node2D) -> void:
     
 func start_falling():
   fall.emit()
+  animation_state_machine.travel("Falling")
   if global_position.y > fall_through_limit:
     set_collision_mask_value(COLLISION_LAYER, false)
     animation = AnimationState.FallingThrough
@@ -190,3 +209,4 @@ func start_falling():
     lock.start()
     await lock.timeout
     animation = AnimationState.None
+    animation_state_machine.travel("Idle")

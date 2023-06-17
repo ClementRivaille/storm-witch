@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://dv8twkwefv6ah"]
+[gd_scene load_steps=26 format=3 uid="uid://dv8twkwefv6ah"]
 
 [ext_resource type="Script" path="res://scripts/Witch.gd" id="1_ja5gt"]
 [ext_resource type="Texture2D" uid="uid://dsa6d1ld3o6at" path="res://assets/sprites/witch.png" id="2_drw2k"]
@@ -8,6 +8,134 @@ size = Vector2(90, 82)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_w4tjs"]
 radius = 46.0069
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_iwapt"]
+animation = &"Falling"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_jckqk"]
+animation = &"Idle"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_sh6qg"]
+animation = &"SteerDown"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_nwuhd"]
+animation = &"SteerUp"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_rnl04"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_xb6to"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_ikcyq"]
+xfade_time = 0.05
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_p8ncf"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_pe4ik"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_lht1d"]
+advance_condition = &"steer_up"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_y85w6"]
+advance_condition = &"steer_down"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_k5sty"]
+advance_condition = &"steer_down"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_x4sfq"]
+advance_condition = &"idle"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_ec4et"]
+advance_condition = &"idle"
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_5m2of"]
+states/Falling/node = SubResource("AnimationNodeAnimation_iwapt")
+states/Falling/position = Vector2(631, 100)
+states/Idle/node = SubResource("AnimationNodeAnimation_jckqk")
+states/Idle/position = Vector2(325, 92)
+states/SteerDown/node = SubResource("AnimationNodeAnimation_sh6qg")
+states/SteerDown/position = Vector2(391, 189)
+states/SteerUp/node = SubResource("AnimationNodeAnimation_nwuhd")
+states/SteerUp/position = Vector2(369, -17)
+transitions = ["Start", "Idle", SubResource("AnimationNodeStateMachineTransition_rnl04"), "Idle", "Falling", SubResource("AnimationNodeStateMachineTransition_xb6to"), "Falling", "Idle", SubResource("AnimationNodeStateMachineTransition_ikcyq"), "SteerUp", "Falling", SubResource("AnimationNodeStateMachineTransition_p8ncf"), "SteerDown", "Falling", SubResource("AnimationNodeStateMachineTransition_pe4ik"), "Idle", "SteerUp", SubResource("AnimationNodeStateMachineTransition_lht1d"), "Idle", "SteerDown", SubResource("AnimationNodeStateMachineTransition_y85w6"), "SteerUp", "SteerDown", SubResource("AnimationNodeStateMachineTransition_k5sty"), "SteerUp", "Idle", SubResource("AnimationNodeStateMachineTransition_x4sfq"), "SteerDown", "Idle", SubResource("AnimationNodeStateMachineTransition_ec4et")]
+graph_offset = Vector2(-136, -43)
+
+[sub_resource type="AnimationNodeStateMachinePlayback" id="AnimationNodeStateMachinePlayback_ee7b5"]
+
+[sub_resource type="Animation" id="Animation_fcgvn"]
+resource_name = "Falling"
+length = 0.4
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [0.0, -0.349066, 0.0, 0.349066]
+}
+
+[sub_resource type="Animation" id="Animation_c7qc8"]
+resource_name = "Idle"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_n72kw"]
+resource_name = "SteerUp"
+length = 0.1
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [-0.698132]
+}
+
+[sub_resource type="Animation" id="Animation_011qx"]
+resource_name = "SteerDown"
+length = 0.1
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.13446]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_3geat"]
+_data = {
+"Falling": SubResource("Animation_fcgvn"),
+"Idle": SubResource("Animation_c7qc8"),
+"SteerDown": SubResource("Animation_011qx"),
+"SteerUp": SubResource("Animation_n72kw")
+}
 
 [node name="Witch" type="CharacterBody2D" groups=["witch"]]
 position = Vector2(114, 318)
@@ -22,6 +150,7 @@ jump_strength = 1200.0
 rise_y_threshold = 300.0
 rise_y_end = 600.0
 rise_speed = 900.0
+angle_down = 65.0
 
 [node name="Sprite" type="Sprite2D" parent="."]
 scale = Vector2(2.5, 2.5)
@@ -49,5 +178,20 @@ input_pickable = false
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="Collider"]
 scale = Vector2(1, 1)
 shape = SubResource("CircleShape2D_w4tjs")
+
+[node name="AnimationTree" type="AnimationTree" parent="."]
+tree_root = SubResource("AnimationNodeStateMachine_5m2of")
+anim_player = NodePath("AnimationPlayer")
+active = true
+parameters/playback = SubResource("AnimationNodeStateMachinePlayback_ee7b5")
+parameters/conditions/idle = false
+parameters/conditions/steer_down = false
+parameters/conditions/steer_up = false
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="AnimationTree"]
+root_node = NodePath("../..")
+libraries = {
+"": SubResource("AnimationLibrary_3geat")
+}
 
 [connection signal="body_entered" from="Collider" to="." method="on_collider_body_entered"]
