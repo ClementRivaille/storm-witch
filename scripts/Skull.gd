@@ -6,7 +6,7 @@ class_name Skull
 @export var throw_velocity: float = 1000.0
 
 @export var aiming_time := 1.4
-@export var prelaunch_time := 0.2
+@export var prelaunch_time := 0.3
 @export var prelaunch_modulate: Color
 
 signal exit

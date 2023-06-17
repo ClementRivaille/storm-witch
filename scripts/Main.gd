@@ -32,7 +32,6 @@ func start_game():
   rain.emitting = true
   
   pearl_spanwer.activate()
-  enemies_spawner.activate()
   
 func switch_level(idx: int):
   var level := levels[idx]
@@ -58,7 +57,14 @@ func switch_level(idx: int):
   else:
     darklight.energy = 0
     
+  enemies_spawner.configure(level.enemies_frq, level.bird_chance, level.skull_chance)
+  if level.bird_chance + level.skull_chance > 0 && !enemies_spawner.active:
+    enemies_spawner.activate()
+  elif level.bird_chance + level.skull_chance == 0 && enemies_spawner.active:
+    enemies_spawner.deactivate()
+    
   if !level.rain:
     rain.visible = false
     pearl_spanwer.deactivate()
+    enemies_spawner.deactivate()
 

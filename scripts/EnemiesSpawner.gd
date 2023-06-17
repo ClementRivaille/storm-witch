@@ -22,6 +22,11 @@ func _ready() -> void:
   store = StoreState
   store.change_level.connect(func (_idx): clear())
   
+func configure(freq: Array[float], bird_c: int, skull_c: int) -> void:
+  bird_chance = bird_c
+  skull_chance = skull_c
+  spawn_freq_range = freq
+  
 func activate():
   active = true
   schedule_spawn()

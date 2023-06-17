@@ -39,6 +39,7 @@ offset_bottom = 23.0
 
 [node name="Lock" type="Timer" parent="."]
 wait_time = 0.2
+one_shot = true
 
 [node name="Collider" type="Area2D" parent="."]
 collision_layer = 14

@@ -13,6 +13,7 @@ class_name Witch
 
 const VELOCITY_FLOOR := 5.0
 const COLLISION_LAYER := 1
+const SAFE_CHECK := 640.0
 
 @export var jump_time: float = 0.1
 @export var demage_time: float = 0.3
@@ -22,11 +23,20 @@ const COLLISION_LAYER := 1
 @export var rise_y_end: float = 500.0
 @export var rise_speed: float = 800.0
 
+@export var fall_acceleration: float = 30.0
+@export var fall_duration: float = 0.4
+@export var fall_through_limit: float = 450.0
+@export var fall_y_end: float = 200.0
+
+
 enum AnimationState {
   None,
   Recentering,
   ExitUp,
   EnteringUp,
+  Falling,
+  FallingThrough,
+  EnteringDown,
 }
 
 var locked := false
@@ -45,6 +55,8 @@ signal rise_stop
 func _physics_process(_delta: float) -> void:
   if animation == AnimationState.None:
     steer_broom()
+  elif is_falling():
+    fall_auto()
   else:
     rise_auto()
 
@@ -56,10 +68,17 @@ func _physics_process(_delta: float) -> void:
     momentum = maxf(0, momentum - lose_momentum)
    
   if (debug.visible):
-    debug.text = "M %s  V %s" % [momentum, velocity.y]
+    debug.text = "Y %s  FT %s" % [global_position.y, global_position.y > fall_through_limit]
 
   move_and_slide()
   
+func is_falling() -> bool:
+  return [
+      AnimationState.Falling,
+      AnimationState.FallingThrough,
+      AnimationState.EnteringDown
+    ].has(animation)
+
 func steer_broom():
   if is_on_wall() && !locked:
     velocity.y = 0
@@ -82,7 +101,7 @@ func steer_broom():
       velocity.y = 0.0
 
 func _input(event: InputEvent) -> void:
-  if event.is_action_pressed("jump") && !locked:
+  if event.is_action_pressed("jump") && !locked && animation == AnimationState.None:
     if store.can_levelup():
       start_rising()
       
@@ -129,6 +148,23 @@ func rise_auto():
       set_collision_mask_value(COLLISION_LAYER, true)
       animation = AnimationState.None
       rise_stop.emit()
+      
+func fall_auto():
+  velocity.y = minf(velocity.y + fall_acceleration, max_speed)
+  
+  if animation == AnimationState.FallingThrough:
+    if store.can_jump() && global_position.y >= SAFE_CHECK:
+      jump()
+      animation = AnimationState.None
+      set_collision_mask_value(COLLISION_LAYER, true)      
+    if global_position.y >= get_viewport_rect().size.y - rise_y_limit:
+      position.y = rise_y_limit
+      animation = AnimationState.EnteringDown
+      store.level_drop()
+  elif animation == AnimationState.EnteringDown:
+    if global_position.y >= fall_y_end:
+      set_collision_mask_value(COLLISION_LAYER, true)
+      animation = AnimationState.None
 
 func on_collider_body_entered(body: Node2D) -> void:
   if animation != AnimationState.None:
@@ -139,4 +175,18 @@ func on_collider_body_entered(body: Node2D) -> void:
     pearl.on_collect()
     collect_pearl.emit()
   elif body.is_in_group("enemy"):
-    print("WOOF")
+    start_falling()
+    
+func start_falling():
+  fall.emit()
+  if global_position.y > fall_through_limit:
+    set_collision_mask_value(COLLISION_LAYER, false)
+    animation = AnimationState.FallingThrough
+  else:
+    animation = AnimationState.Falling
+    if !lock.is_stopped():
+      lock.stop()
+    lock.wait_time = fall_duration
+    lock.start()
+    await lock.timeout
+    animation = AnimationState.None

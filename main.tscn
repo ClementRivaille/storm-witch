@@ -27,6 +27,9 @@ background = NodePath("Background/Level1")
 sky = NodePath("Sky/Lvl1")
 lighting = 0
 rain = true
+bird_chance = 0
+skull_chance = 0
+enemies_frq = Array[float]([4.0, 8.0])
 
 [sub_resource type="Resource" id="Resource_kwa0b"]
 script = ExtResource("2_h4nbr")
@@ -34,6 +37,9 @@ background = NodePath("Background/Level2")
 sky = NodePath("Sky/Lvl2")
 lighting = 0
 rain = true
+bird_chance = 1
+skull_chance = 0
+enemies_frq = Array[float]([1.5, 4.5])
 
 [sub_resource type="Resource" id="Resource_386ca"]
 script = ExtResource("2_h4nbr")
@@ -41,6 +47,9 @@ background = NodePath("Background/Level3")
 sky = NodePath("Sky/Lvl2")
 lighting = 0
 rain = true
+bird_chance = 1
+skull_chance = 0
+enemies_frq = Array[float]([0.8, 3.0])
 
 [sub_resource type="Resource" id="Resource_1gth4"]
 script = ExtResource("2_h4nbr")
@@ -48,6 +57,9 @@ background = NodePath("Background/EndBg")
 sky = NodePath("Sky/LvlEnd")
 lighting = 2
 rain = false
+bird_chance = 0
+skull_chance = 0
+enemies_frq = Array[float]([4.0, 8.0])
 
 [sub_resource type="Gradient" id="Gradient_2dxoe"]
 colors = PackedColorArray(1, 1, 1, 0.701961, 1, 1, 1, 1)
@@ -183,6 +195,8 @@ position = Vector2(1350, 0)
 script = ExtResource("17_pf03v")
 bird_prefab = ExtResource("17_bxcmp")
 skull_prefab = ExtResource("19_ll4tm")
+min_height = 150.0
+max_height = 600.0
 
 [node name="Timer" type="Timer" parent="EnemiesSpawner"]
 one_shot = true
