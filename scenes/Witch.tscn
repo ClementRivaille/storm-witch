@@ -19,6 +19,9 @@ momentum_speed = 30.0
 deceleration_factor = 0.9
 lose_momentum = 0.015
 jump_strength = 1200.0
+rise_y_threshold = 300.0
+rise_y_end = 450.0
+rise_speed = 900.0
 
 [node name="Sprite" type="Sprite2D" parent="."]
 scale = Vector2(2.5, 2.5)
