@@ -22,21 +22,29 @@
 script = ExtResource("2_h4nbr")
 background = NodePath("Background/Level1")
 sky = NodePath("Sky/Lvl1")
-
-[sub_resource type="Resource" id="Resource_kwa0b"]
-script = ExtResource("2_h4nbr")
-background = NodePath("Background/Level2")
-sky = NodePath("Sky/Lvl2")
-
-[sub_resource type="Resource" id="Resource_386ca"]
-script = ExtResource("2_h4nbr")
-background = NodePath("Background/Level3")
-sky = NodePath("Sky/Lvl2")
+lighting = 0
+rain = true
 
 [sub_resource type="Resource" id="Resource_1gth4"]
 script = ExtResource("2_h4nbr")
 background = NodePath("Background/EndBg")
 sky = NodePath("Sky/LvlEnd")
+lighting = 2
+rain = false
+
+[sub_resource type="Resource" id="Resource_kwa0b"]
+script = ExtResource("2_h4nbr")
+background = NodePath("Background/Level2")
+sky = NodePath("Sky/Lvl2")
+lighting = 0
+rain = true
+
+[sub_resource type="Resource" id="Resource_386ca"]
+script = ExtResource("2_h4nbr")
+background = NodePath("Background/Level3")
+sky = NodePath("Sky/Lvl2")
+lighting = 0
+rain = true
 
 [sub_resource type="Gradient" id="Gradient_2dxoe"]
 colors = PackedColorArray(1, 1, 1, 0.701961, 1, 1, 1, 1)
@@ -68,9 +76,9 @@ size = Vector2(1300, 40)
 texture_filter = 1
 texture_repeat = 2
 script = ExtResource("1_yku23")
-levels = Array[ExtResource("2_h4nbr")]([SubResource("Resource_0teo4"), SubResource("Resource_kwa0b"), SubResource("Resource_386ca"), SubResource("Resource_1gth4")])
+levels = Array[ExtResource("2_h4nbr")]([SubResource("Resource_0teo4"), SubResource("Resource_1gth4"), SubResource("Resource_kwa0b"), SubResource("Resource_386ca")])
 
-[node name="DirectionalLight2D" type="DirectionalLight2D" parent="."]
+[node name="DarkLight" type="DirectionalLight2D" parent="."]
 energy = 0.2
 blend_mode = 1
 range_layer_min = -9
@@ -78,7 +86,8 @@ range_layer_max = 1
 height = 1.0
 max_distance = 720.0
 
-[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+[node name="Rain" type="GPUParticles2D" parent="."]
+visible = false
 modulate = Color(1, 1, 1, 0.929412)
 top_level = true
 z_index = 1

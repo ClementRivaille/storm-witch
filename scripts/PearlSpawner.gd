@@ -28,6 +28,9 @@ func activate():
   active = true
   schedule_spawn()
   
+func deactivate():
+  active = false
+  
 func spawn_drop():
   if !active:
     return
@@ -58,3 +61,5 @@ func clear():
   for drop in drops:
     drop.queue_free()
   drops.clear()
+  timer.stop()
+  schedule_spawn()

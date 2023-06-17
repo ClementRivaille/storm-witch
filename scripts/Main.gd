@@ -7,6 +7,8 @@ class_name Main
 @onready var pearl_spanwer: PearlSpawner = $PearlSpawner
 @onready var backgrounds: Node2D = $Background
 @onready var skies: CanvasLayer = $Sky
+@onready var darklight: DirectionalLight2D = $DarkLight
+@onready var rain: GPUParticles2D = $Rain
 
 @onready var store: Store = StoreState
 
@@ -44,3 +46,16 @@ func switch_level(idx: int):
       current_sky.visible = false
     sky.visible = true
     current_sky = sky
+    
+  var lighting: LevelConfiguration.LightingLevel = level.lighting
+  if lighting == LevelConfiguration.LightingLevel.dimmed:
+    darklight.energy = 0.2
+  elif lighting == LevelConfiguration.LightingLevel.dark:
+    darklight.energy = 0.4
+  else:
+    darklight.energy = 0
+    
+  if !level.rain:
+    rain.visible = false
+    pearl_spanwer.deactivate()
+

@@ -22,14 +22,11 @@ func can_jump() -> bool:
 func can_levelup() -> bool:
   return pearls >= max_pearls
   
-func jump():
-  pearls = maxi(pearls - jump_cost, 0)
+func jump(levelup: bool):
+  pearls = maxi(pearls - levelup_cost if levelup else jump_cost, 0)
   pearls_updated.emit(pearls)
   pearls_consumed.emit()
 
 func levelup():
-  pearls = maxi(pearls - levelup_cost, 0)
-  pearls_updated.emit(pearls)
-  
   current_level = current_level + 1
   change_level.emit(current_level)

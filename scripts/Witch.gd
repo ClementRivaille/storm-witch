@@ -92,7 +92,7 @@ func _input(event: InputEvent) -> void:
 func jump():
   locked = true
   velocity.y = -jump_strength
-  store.jump()
+  store.jump(false)
   
   lock.wait_time = jump_time
   lock.start()
@@ -100,6 +100,7 @@ func jump():
   locked = false
   
 func start_rising():
+  store.jump(true)
   rise_start.emit()
   set_collision_mask_value(COLLISION_LAYER, false)
   
