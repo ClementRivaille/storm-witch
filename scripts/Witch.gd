@@ -138,3 +138,5 @@ func on_collider_body_entered(body: Node2D) -> void:
     var pearl := body as PearlDrop
     pearl.on_collect()
     collect_pearl.emit()
+  elif body.is_in_group("enemy"):
+    print("WOOF")

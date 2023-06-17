@@ -5,6 +5,7 @@ class_name Main
 @export var levels: Array[LevelConfiguration] = []
 
 @onready var pearl_spanwer: PearlSpawner = $PearlSpawner
+@onready var enemies_spawner: EnnemiesSpawner = $EnemiesSpawner
 @onready var backgrounds: Node2D = $Background
 @onready var skies: CanvasLayer = $Sky
 @onready var darklight: DirectionalLight2D = $DarkLight
@@ -22,7 +23,7 @@ func _ready() -> void:
   
   for bg in backgrounds.get_children():
     var background := bg as ScrollBackground
-    bg.set_bg_visible(false)
+    background.set_bg_visible(false)
   
   start_game()
   
@@ -31,6 +32,7 @@ func start_game():
   rain.emitting = true
   
   pearl_spanwer.activate()
+  enemies_spawner.activate()
   
 func switch_level(idx: int):
   var level := levels[idx]

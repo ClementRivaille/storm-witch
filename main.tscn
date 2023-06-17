@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://dywdey6v3mhec"]
+[gd_scene load_steps=29 format=3 uid="uid://dywdey6v3mhec"]
 
 [ext_resource type="Texture2D" uid="uid://bhy4q7epwruwk" path="res://assets/textures/sky_1.png" id="1_vue8f"]
 [ext_resource type="Script" path="res://scripts/Main.gd" id="1_yku23"]
@@ -17,6 +17,9 @@
 [ext_resource type="PackedScene" uid="uid://12adskyndp6t" path="res://scenes/bg_lvl4.tscn" id="8_unxaa"]
 [ext_resource type="PackedScene" uid="uid://1rqceucp4b86" path="res://scenes/bg_lvl5.tscn" id="9_w5goo"]
 [ext_resource type="PackedScene" uid="uid://lj5jkd221ppm" path="res://scenes/bg_end.tscn" id="10_cre18"]
+[ext_resource type="PackedScene" uid="uid://c1162y6kx1prd" path="res://scenes/Bird.tscn" id="17_bxcmp"]
+[ext_resource type="Script" path="res://scripts/EnemiesSpawner.gd" id="17_pf03v"]
+[ext_resource type="PackedScene" uid="uid://d1rbcw2x511xr" path="res://scenes/Skull.tscn" id="19_ll4tm"]
 
 [sub_resource type="Resource" id="Resource_0teo4"]
 script = ExtResource("2_h4nbr")
@@ -24,13 +27,6 @@ background = NodePath("Background/Level1")
 sky = NodePath("Sky/Lvl1")
 lighting = 0
 rain = true
-
-[sub_resource type="Resource" id="Resource_1gth4"]
-script = ExtResource("2_h4nbr")
-background = NodePath("Background/EndBg")
-sky = NodePath("Sky/LvlEnd")
-lighting = 2
-rain = false
 
 [sub_resource type="Resource" id="Resource_kwa0b"]
 script = ExtResource("2_h4nbr")
@@ -45,6 +41,13 @@ background = NodePath("Background/Level3")
 sky = NodePath("Sky/Lvl2")
 lighting = 0
 rain = true
+
+[sub_resource type="Resource" id="Resource_1gth4"]
+script = ExtResource("2_h4nbr")
+background = NodePath("Background/EndBg")
+sky = NodePath("Sky/LvlEnd")
+lighting = 2
+rain = false
 
 [sub_resource type="Gradient" id="Gradient_2dxoe"]
 colors = PackedColorArray(1, 1, 1, 0.701961, 1, 1, 1, 1)
@@ -76,7 +79,7 @@ size = Vector2(1300, 40)
 texture_filter = 1
 texture_repeat = 2
 script = ExtResource("1_yku23")
-levels = Array[ExtResource("2_h4nbr")]([SubResource("Resource_0teo4"), SubResource("Resource_1gth4"), SubResource("Resource_kwa0b"), SubResource("Resource_386ca")])
+levels = Array[ExtResource("2_h4nbr")]([SubResource("Resource_0teo4"), SubResource("Resource_kwa0b"), SubResource("Resource_386ca"), SubResource("Resource_1gth4")])
 
 [node name="DarkLight" type="DirectionalLight2D" parent="."]
 energy = 0.2
@@ -173,6 +176,16 @@ max_height = 400.0
 drop_asset = ExtResource("6_3y7f5")
 
 [node name="Timer" type="Timer" parent="PearlSpawner"]
+one_shot = true
+
+[node name="EnemiesSpawner" type="Node2D" parent="."]
+position = Vector2(1350, 0)
+script = ExtResource("17_pf03v")
+bird_prefab = ExtResource("17_bxcmp")
+skull_prefab = ExtResource("19_ll4tm")
+
+[node name="Timer" type="Timer" parent="EnemiesSpawner"]
+one_shot = true
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 layer = 5
@@ -189,6 +202,7 @@ offset_left = 15.0
 offset_bottom = -15.0
 grow_horizontal = 2
 grow_vertical = 2
+metadata/_edit_lock_ = true
 
 [node name="Flask" parent="CanvasLayer/UI" instance=ExtResource("8_nrlv5")]
 layout_mode = 1

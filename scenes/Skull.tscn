@@ -1,0 +1,27 @@
+[gd_scene load_steps=4 format=3 uid="uid://d1rbcw2x511xr"]
+
+[ext_resource type="Script" path="res://scripts/Skull.gd" id="1_p0jrs"]
+[ext_resource type="Texture2D" uid="uid://dica532v5o835" path="res://assets/sprites/skull.png" id="2_utdjv"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_oo1yi"]
+radius = 38.2786
+
+[node name="Skull" type="CharacterBody2D" groups=["enemy"]]
+z_index = 2
+collision_layer = 8
+collision_mask = 8
+motion_mode = 1
+script = ExtResource("1_p0jrs")
+prelaunch_modulate = Color(0.54902, 0.54902, 0.54902, 1)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(2.5, 2.5)
+texture = ExtResource("2_utdjv")
+metadata/_edit_lock_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-2, 0.5)
+shape = SubResource("CircleShape2D_oo1yi")
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true
