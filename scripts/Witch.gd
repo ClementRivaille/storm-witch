@@ -21,6 +21,7 @@ var momentum: float = 0.0
 
 @onready var lock: Timer = $Lock
 @onready var debug: Label = $debug
+@onready var store: Store = StoreState
 
 signal collect_pearl
 signal fall
@@ -57,9 +58,10 @@ func _physics_process(delta: float) -> void:
   move_and_slide()
 
 func _input(event: InputEvent) -> void:
-  if event.is_action_pressed("jump") && !locked:
+  if event.is_action_pressed("jump") && !locked && store.can_jump():
     locked = true
     velocity.y = -jump_strength
+    store.jump()
     
     lock.wait_time = jump_time
     lock.start()

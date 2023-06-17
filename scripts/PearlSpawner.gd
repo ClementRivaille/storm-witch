@@ -10,6 +10,7 @@ class_name PearlSpawner
 @export var drop_asset: PackedScene
 
 @onready var timer: Timer = $Timer
+var store: Store
 
 var active := false
 var drops: Array[PearlDrop] = []
@@ -17,6 +18,7 @@ var drops_speed := 500
 
 func _ready() -> void:
   timer.connect("timeout", spawn_drop)
+  store = StoreState
   
 func set_speed(speed: float):
   drops_speed = speed
@@ -32,7 +34,7 @@ func spawn_drop():
   var drop: PearlDrop = drop_asset.instantiate()
   drop.position.y = randf_range(min_height, max_height)
   add_child(drop)
-  drop.collected.connect(remove_drop)
+  drop.collected.connect(collect_pearl)
   drop.missed.connect(remove_drop)
   drop.set_speed(drops_speed, 100)
   drops.push_front(drop)
@@ -42,6 +44,10 @@ func spawn_drop():
 func schedule_spawn():
   timer.wait_time = randf_range(min_delay, max_delay)
   timer.start()
+
+func collect_pearl(drop: PearlDrop):
+  store.collect_pearl()
+  remove_drop(drop)
 
 func remove_drop(drop: PearlDrop):
   drops.erase(drop)

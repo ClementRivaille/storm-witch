@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://dywdey6v3mhec"]
+[gd_scene load_steps=13 format=3 uid="uid://dywdey6v3mhec"]
 
 [ext_resource type="Texture2D" uid="uid://bhy4q7epwruwk" path="res://assets/textures/sky_1.png" id="1_vue8f"]
 [ext_resource type="Script" path="res://scripts/Main.gd" id="1_yku23"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://dv8twkwefv6ah" path="res://scenes/Witch.tscn" id="4_8ogh1"]
 [ext_resource type="PackedScene" uid="uid://ch6fxv74jneia" path="res://scenes/PearlDrop.tscn" id="6_3y7f5"]
 [ext_resource type="Script" path="res://scripts/PearlSpawner.gd" id="6_dhbuv"]
+[ext_resource type="PackedScene" uid="uid://vrgbl8wteowy" path="res://scenes/Flask.tscn" id="8_nrlv5"]
 
 [sub_resource type="Gradient" id="Gradient_2dxoe"]
 colors = PackedColorArray(1, 1, 1, 0.701961, 1, 1, 1, 1)
@@ -43,7 +44,7 @@ script = ExtResource("1_yku23")
 energy = 0.2
 blend_mode = 1
 range_layer_min = -9
-range_layer_max = 100
+range_layer_max = 1
 height = 1.0
 max_distance = 720.0
 
@@ -54,6 +55,7 @@ z_index = 1
 z_as_relative = false
 texture_filter = 1
 position = Vector2(900, 0)
+emitting = false
 amount = 1000
 process_material = SubResource("ParticleProcessMaterial_mr0yl")
 texture = ExtResource("3_1wp1n")
@@ -95,3 +97,28 @@ max_height = 400.0
 drop_asset = ExtResource("6_3y7f5")
 
 [node name="Timer" type="Timer" parent="PearlSpawner"]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = 5
+follow_viewport_enabled = true
+
+[node name="UI" type="Control" parent="CanvasLayer"]
+top_level = true
+light_mask = 2
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 15.0
+offset_bottom = -15.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Flask" parent="CanvasLayer/UI" instance=ExtResource("8_nrlv5")]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -100.0
+offset_bottom = 0.0
+grow_vertical = 0
