@@ -121,6 +121,7 @@ func rise_auto():
       # warp down
       position.y = get_viewport_rect().size.y - rise_y_limit
       animation = AnimationState.EnteringUp
+      store.levelup()
   elif animation == AnimationState.EnteringUp:
     velocity.y = maxf(velocity.y, -rise_speed)
     if (global_position.y <= rise_y_end):

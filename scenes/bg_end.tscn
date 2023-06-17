@@ -1,0 +1,71 @@
+[gd_scene load_steps=7 format=3 uid="uid://lj5jkd221ppm"]
+
+[ext_resource type="Script" path="res://scripts/ScrollBackground.gd" id="1_ogpxp"]
+[ext_resource type="Texture2D" uid="uid://7th0m8nfcphp" path="res://assets/textures/clouds_light_1.png" id="2_nomuo"]
+[ext_resource type="Script" path="res://scripts/ScrollableLayer.gd" id="3_fpdmx"]
+[ext_resource type="Texture2D" uid="uid://ci6cvnstvcljl" path="res://assets/textures/clouds_light_4.png" id="4_15851"]
+[ext_resource type="Texture2D" uid="uid://dfldy37o4ww8t" path="res://assets/textures/clouds_light_3.png" id="5_2ttfd"]
+[ext_resource type="Texture2D" uid="uid://b068ndevxm4so" path="res://assets/textures/clouds_light_2.png" id="6_omjjd"]
+
+[node name="EndBg" type="Node2D" groups=["scrollable"]]
+script = ExtResource("1_ogpxp")
+speed = 500.0
+
+[node name="Foreground" type="Node2D" parent="."]
+z_index = 4
+
+[node name="Polygon2D" type="Polygon2D" parent="Foreground"]
+texture_filter = 1
+texture_repeat = 2
+position = Vector2(0, 720)
+scale = Vector2(2.5, 2.5)
+antialiased = true
+texture = ExtResource("2_nomuo")
+texture_offset = Vector2(0, -37)
+polygon = PackedVector2Array(0, 0, 1024, 0, 1024, -37, 0, -37)
+
+[node name="Parallax" type="ParallaxBackground" parent="."]
+layer = -5
+scroll_ignore_camera_zoom = true
+
+[node name="Clouds4" type="ParallaxLayer" parent="Parallax"]
+motion_scale = Vector2(0.3, 0.3)
+script = ExtResource("3_fpdmx")
+
+[node name="Polygon2D" type="Polygon2D" parent="Parallax/Clouds4"]
+texture_filter = 1
+texture_repeat = 2
+position = Vector2(0, 720)
+scale = Vector2(2.5, 2.5)
+antialiased = true
+texture = ExtResource("4_15851")
+texture_offset = Vector2(0, -51)
+polygon = PackedVector2Array(0, 0, 1024, 0, 1024, -51, 0, -51)
+
+[node name="Clouds3" type="ParallaxLayer" parent="Parallax"]
+motion_scale = Vector2(0.6, 0.6)
+script = ExtResource("3_fpdmx")
+
+[node name="Polygon2D" type="Polygon2D" parent="Parallax/Clouds3"]
+texture_filter = 1
+texture_repeat = 2
+position = Vector2(0, 720)
+scale = Vector2(2.5, 2.5)
+antialiased = true
+texture = ExtResource("5_2ttfd")
+texture_offset = Vector2(0, -48)
+polygon = PackedVector2Array(0, 0, 1024, 0, 1024, -48, 0, -48)
+
+[node name="Clouds2" type="ParallaxLayer" parent="Parallax"]
+motion_scale = Vector2(0.8, 0.8)
+script = ExtResource("3_fpdmx")
+
+[node name="Polygon2D" type="Polygon2D" parent="Parallax/Clouds2"]
+texture_filter = 1
+texture_repeat = 2
+position = Vector2(0, 720)
+scale = Vector2(2.5, 2.5)
+antialiased = true
+texture = ExtResource("6_omjjd")
+texture_offset = Vector2(0, -43)
+polygon = PackedVector2Array(0, 0, 1024, 0, 1024, -43, 0, -43)

@@ -1,0 +1,75 @@
+[gd_scene load_steps=7 format=3 uid="uid://dxk07c21u30e7"]
+
+[ext_resource type="Script" path="res://scripts/ScrollBackground.gd" id="1_1a533"]
+[ext_resource type="Texture2D" uid="uid://c4fyvded55eup" path="res://assets/textures/mountains_3.png" id="3_hxsdb"]
+[ext_resource type="Texture2D" uid="uid://bts7h0lxloyiw" path="res://assets/textures/mountains_4.png" id="3_t0k8r"]
+[ext_resource type="Script" path="res://scripts/ScrollableLayer.gd" id="3_wvmfu"]
+[ext_resource type="Texture2D" uid="uid://cg12f3lbevru3" path="res://assets/textures/mountains_2.png" id="4_5nvy2"]
+[ext_resource type="Texture2D" uid="uid://mnj23dioh6pl" path="res://assets/textures/mountains_1.png" id="5_h6agc"]
+
+[node name="Level2" type="Node2D" groups=["scrollable"]]
+script = ExtResource("1_1a533")
+speed = 500.0
+
+[node name="Foreground" type="Node2D" parent="."]
+visible = false
+
+[node name="Parallax" type="ParallaxBackground" parent="."]
+layer = -5
+scroll_ignore_camera_zoom = true
+
+[node name="Mountains4" type="ParallaxLayer" parent="Parallax"]
+motion_scale = Vector2(0.1, 0.1)
+script = ExtResource("3_wvmfu")
+
+[node name="Polygon2D" type="Polygon2D" parent="Parallax/Mountains4"]
+texture_filter = 1
+texture_repeat = 2
+position = Vector2(0, 720)
+scale = Vector2(2.5, 2.5)
+antialiased = true
+texture = ExtResource("3_t0k8r")
+texture_offset = Vector2(0, -43)
+polygon = PackedVector2Array(0, 0, 1024, 0, 1024, -43, 0, -43)
+
+[node name="Mountains3" type="ParallaxLayer" parent="Parallax"]
+motion_scale = Vector2(0.2, 0.2)
+script = ExtResource("3_wvmfu")
+
+[node name="Polygon2D" type="Polygon2D" parent="Parallax/Mountains3"]
+texture_filter = 1
+texture_repeat = 2
+position = Vector2(0, 720)
+scale = Vector2(2.5, 2.5)
+antialiased = true
+texture = ExtResource("3_hxsdb")
+texture_offset = Vector2(0, -52)
+polygon = PackedVector2Array(0, 0, 1024, 0, 1024, -52, 0, -52)
+
+[node name="Mountains2" type="ParallaxLayer" parent="Parallax"]
+motion_scale = Vector2(0.4, 0.4)
+script = ExtResource("3_wvmfu")
+
+[node name="Polygon2D" type="Polygon2D" parent="Parallax/Mountains2"]
+texture_filter = 1
+texture_repeat = 2
+position = Vector2(0, 720)
+scale = Vector2(2.5, 2.5)
+antialiased = true
+texture = ExtResource("4_5nvy2")
+texture_offset = Vector2(0, -29)
+polygon = PackedVector2Array(0, 0, 1024, 0, 1024, -29, 0, -29)
+
+[node name="Mountains1" type="ParallaxLayer" parent="Parallax"]
+motion_scale = Vector2(0.5, 0.5)
+script = ExtResource("3_wvmfu")
+
+[node name="Polygon2D" type="Polygon2D" parent="Parallax/Mountains1"]
+texture_filter = 1
+texture_repeat = 2
+position = Vector2(0, 720)
+scale = Vector2(2.5, 2.5)
+antialiased = true
+texture = ExtResource("5_h6agc")
+texture_offset = Vector2(0, -21)
+polygon = PackedVector2Array(0, 0, 1024, 0, 1024, -21, 0, -21)

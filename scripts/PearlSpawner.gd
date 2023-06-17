@@ -19,6 +19,7 @@ var drops_speed := 500
 func _ready() -> void:
   timer.connect("timeout", spawn_drop)
   store = StoreState
+  store.change_level.connect(func (_idx): clear())
   
 func set_speed(speed: float):
   drops_speed = speed

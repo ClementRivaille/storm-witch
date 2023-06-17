@@ -12,6 +12,7 @@ var tween: Tween
 func _ready() -> void:
   store.pearls_updated.connect(update_fill)
   store.pearls_consumed.connect(use_flask)
+  store.change_level.connect(func (_lvl): use_flask())
   fill.anchor_bottom = 0.0
   modulate = empty_modulate
 

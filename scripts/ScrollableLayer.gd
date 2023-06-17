@@ -8,6 +8,12 @@ var half := false
 func init():
   iteration = 1
   half = false
+  
+  var texture: Polygon2D = get_child(0)
+  for c in get_children():
+    if c != texture:
+      c.queue_free()
+  texture.position.x = 0
   copy_texture()
 
 func copy_texture():

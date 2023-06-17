@@ -8,10 +8,8 @@ var fg_clone: Node2D
 @export var speed: float = 100.0
 @export var foreground_width: float = 1024 * 2.5
 
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-  init()
-  
+var active := false
+
 func init():
   parallax.set_scroll_offset(Vector2(0,0))
   foreground.position.x = 0
@@ -20,18 +18,28 @@ func init():
   for l in parallax.get_children():
     var layer := l as ScrollableLayer
     layer.init()
+    
+  active = true
+  set_bg_visible(true)
+  
+func deactivate():
+  active = false
+  fg_clone.queue_free()
+  set_bg_visible(false)
 
 func _process(delta: float) -> void:
-  scroll(delta)
+  if active:
+    scroll(delta)
 
 func scroll(delta: float):
   # foreground
-  foreground.position.x = foreground.position.x - delta * speed
-  fg_clone.position.x = fg_clone.position.x - delta * speed
-  if (fg_clone.position.x <= 0):
-    foreground.queue_free()
-    foreground = fg_clone
-    clone_foreground(fg_clone.position.x)
+  if foreground.visible:
+    foreground.position.x = foreground.position.x - delta * speed
+    fg_clone.position.x = fg_clone.position.x - delta * speed
+    if (fg_clone.position.x <= 0):
+      foreground.queue_free()
+      foreground = fg_clone
+      clone_foreground(fg_clone.position.x)
 
   # Parallax
   parallax.set_scroll_offset(parallax.scroll_offset + Vector2(-speed*delta, 0))
@@ -46,3 +54,7 @@ func clone_foreground(offset: float):
   
 func set_speed(scroll_speed: float):
   speed = scroll_speed
+  
+func set_bg_visible(value: bool):
+  visible = value
+  parallax.visible = value
