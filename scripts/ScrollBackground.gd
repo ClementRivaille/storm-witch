@@ -43,3 +43,6 @@ func clone_foreground(offset: float):
   fg_clone = foreground.duplicate()
   fg_clone.position.x = foreground_width + offset
   add_child(fg_clone)
+  
+func set_speed(scroll_speed: float):
+  speed = scroll_speed

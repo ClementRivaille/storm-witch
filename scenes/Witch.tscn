@@ -1,0 +1,49 @@
+[gd_scene load_steps=5 format=3 uid="uid://dv8twkwefv6ah"]
+
+[ext_resource type="Script" path="res://scripts/Witch.gd" id="1_ja5gt"]
+[ext_resource type="Texture2D" uid="uid://dsa6d1ld3o6at" path="res://assets/sprites/witch.png" id="2_drw2k"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_80mhr"]
+size = Vector2(90, 82)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_w4tjs"]
+radius = 46.0069
+
+[node name="Witch" type="CharacterBody2D"]
+position = Vector2(114, 318)
+scale = Vector2(2.5, 2.5)
+motion_mode = 1
+script = ExtResource("1_ja5gt")
+max_speed = 800.0
+momentum_speed = 30.0
+deceleration_factor = 0.9
+lose_momentum = 0.015
+jump_strength = 1200.0
+
+[node name="Sprite" type="Sprite2D" parent="."]
+scale = Vector2(2.5, 2.5)
+texture = ExtResource("2_drw2k")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-2.2, -1.39999)
+scale = Vector2(1, 1)
+shape = SubResource("RectangleShape2D_80mhr")
+
+[node name="debug" type="Label" parent="."]
+visible = false
+offset_right = 40.0
+offset_bottom = 23.0
+
+[node name="Lock" type="Timer" parent="."]
+wait_time = 0.2
+
+[node name="Collider" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 2
+input_pickable = false
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Collider"]
+scale = Vector2(1, 1)
+shape = SubResource("CircleShape2D_w4tjs")
+
+[connection signal="body_entered" from="Collider" to="." method="on_collider_body_entered"]

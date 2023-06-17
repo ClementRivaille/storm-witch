@@ -1,0 +1,43 @@
+[gd_scene load_steps=6 format=3 uid="uid://ch6fxv74jneia"]
+
+[ext_resource type="Script" path="res://scripts/PearlDrop.gd" id="1_es1do"]
+[ext_resource type="Texture2D" uid="uid://ch34e5o68f2qf" path="res://assets/sprites/pearl_drop.png" id="2_7f5pq"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_t552k"]
+radius = 10.0499
+
+[sub_resource type="Gradient" id="Gradient_phr0q"]
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_e2mpc"]
+gradient = SubResource("Gradient_phr0q")
+width = 100
+height = 100
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.316239, 0.0641026)
+
+[node name="PearlDrop" type="RigidBody2D"]
+collision_layer = 2
+collision_mask = 2
+mass = 0.01
+gravity_scale = 0.0
+contact_monitor = true
+lock_rotation = true
+script = ExtResource("1_es1do")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(2.5, 2.5)
+texture = ExtResource("2_7f5pq")
+metadata/_edit_lock_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_t552k")
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+position = Vector2(0.926746, 1)
+scale = Vector2(1.02325, 1.025)
+energy = 0.35
+range_layer_min = -10
+range_layer_max = 8
+texture = SubResource("GradientTexture2D_e2mpc")

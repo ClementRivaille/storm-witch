@@ -7,7 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://yma457vwqck" path="res://assets/textures/field_2.png" id="5_rvf3j"]
 [ext_resource type="Texture2D" uid="uid://d2iba3hllntgx" path="res://assets/textures/field_1.png" id="6_hu5aq"]
 
-[node name="Level1" type="Node2D"]
+[node name="Level1" type="Node2D" groups=["scrollable"]]
 script = ExtResource("1_t0mfe")
 speed = 500.0
 
