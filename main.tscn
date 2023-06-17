@@ -87,7 +87,6 @@ height = 1.0
 max_distance = 720.0
 
 [node name="Rain" type="GPUParticles2D" parent="."]
-visible = false
 modulate = Color(1, 1, 1, 0.929412)
 top_level = true
 z_index = 1

@@ -28,6 +28,7 @@ func _ready() -> void:
   
 func start_game():
   switch_level(0)
+  rain.emitting = true
   
   pearl_spanwer.activate()
   
