@@ -5,7 +5,7 @@ class_name Store
 @export var jump_cost := 3
 @export var levelup_cost := 6
 
-var pearls := 9
+var pearls := 0
 var current_level := 0
 
 signal pearls_updated(value: int)
