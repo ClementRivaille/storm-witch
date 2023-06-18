@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://c35tqkl4bssf5"]
+[gd_scene load_steps=31 format=3 uid="uid://c35tqkl4bssf5"]
 
 [ext_resource type="Script" path="res://scripts/MusicManager.gd" id="1_ib8ey"]
 [ext_resource type="AudioStream" uid="uid://ic7eciwwnpxb" path="res://assets/music/level_1.ogg" id="1_vurpj"]
@@ -6,6 +6,96 @@
 [ext_resource type="AudioStream" uid="uid://8ab0bv2ebr2w" path="res://assets/music/level_3.ogg" id="3_qxqe0"]
 [ext_resource type="AudioStream" uid="uid://cmch0a4lmivcs" path="res://assets/music/level_4.ogg" id="4_6e1ig"]
 [ext_resource type="AudioStream" uid="uid://bbkv4prob5d75" path="res://assets/music/level_5.ogg" id="5_5bka1"]
+[ext_resource type="Script" path="res://addons/SimpleSampler/sampler_instrument.gd" id="7_57v2t"]
+[ext_resource type="Script" path="res://addons/SimpleSampler/sample_resource.gd" id="8_txsxe"]
+[ext_resource type="AudioStream" uid="uid://bqbh0v3t1o6y3" path="res://assets/sounds/drops/B6.wav" id="9_g1i6s"]
+[ext_resource type="AudioStream" uid="uid://b5bsq0uvibroe" path="res://assets/sounds/drops/Bb5.wav" id="10_54oxx"]
+[ext_resource type="AudioStream" uid="uid://7og4yq55q4s1" path="res://assets/sounds/drops/E6.wav" id="11_w2nd4"]
+[ext_resource type="AudioStream" uid="uid://dyl8mtwjp0c72" path="res://assets/sounds/drops/G6.wav" id="12_l4kb4"]
+[ext_resource type="AudioStream" uid="uid://ue0ruf5rlu5b" path="res://assets/sounds/piano/Player_dyn3_rr1_026.wav" id="13_5to7g"]
+[ext_resource type="AudioStream" uid="uid://b1msl6khyi5bk" path="res://assets/sounds/piano/Player_dyn3_rr1_028.wav" id="14_15qcj"]
+[ext_resource type="AudioStream" uid="uid://dp5vbiipvtu0b" path="res://assets/sounds/piano/Player_dyn3_rr1_032.wav" id="15_mxt1r"]
+[ext_resource type="AudioStream" uid="uid://43l8urslnfne" path="res://assets/sounds/piano/Player_dyn3_rr1_034.wav" id="16_3cbnb"]
+[ext_resource type="AudioStream" uid="uid://byun6h3sff0kd" path="res://assets/sounds/piano/Player_dyn3_rr1_036.wav" id="17_xcarf"]
+[ext_resource type="AudioStream" uid="uid://dtce57b1myay0" path="res://assets/sounds/piano/Player_dyn3_rr1_040.wav" id="18_oob5i"]
+[ext_resource type="AudioStream" uid="uid://qxd4363cwsbk" path="res://assets/sounds/piano/Player_dyn3_rr1_042.wav" id="19_r2i4t"]
+
+[sub_resource type="Resource" id="Resource_63bg3"]
+script = ExtResource("8_txsxe")
+stream = ExtResource("9_g1i6s")
+tone = "B"
+octave = 6
+velocity = 5
+
+[sub_resource type="Resource" id="Resource_qd23o"]
+script = ExtResource("8_txsxe")
+stream = ExtResource("10_54oxx")
+tone = "A#"
+octave = 5
+velocity = 5
+
+[sub_resource type="Resource" id="Resource_87rbm"]
+script = ExtResource("8_txsxe")
+stream = ExtResource("11_w2nd4")
+tone = "E"
+octave = 6
+velocity = 5
+
+[sub_resource type="Resource" id="Resource_oue5b"]
+script = ExtResource("8_txsxe")
+stream = ExtResource("12_l4kb4")
+tone = "G"
+octave = 6
+velocity = 5
+
+[sub_resource type="Resource" id="Resource_3cd6f"]
+script = ExtResource("8_txsxe")
+stream = ExtResource("13_5to7g")
+tone = "C#"
+octave = 5
+velocity = 5
+
+[sub_resource type="Resource" id="Resource_w4alx"]
+script = ExtResource("8_txsxe")
+stream = ExtResource("14_15qcj")
+tone = "F"
+octave = 5
+velocity = 5
+
+[sub_resource type="Resource" id="Resource_0xji8"]
+script = ExtResource("8_txsxe")
+stream = ExtResource("15_mxt1r")
+tone = "C#"
+octave = 6
+velocity = 5
+
+[sub_resource type="Resource" id="Resource_4cw20"]
+script = ExtResource("8_txsxe")
+stream = ExtResource("16_3cbnb")
+tone = "F"
+octave = 6
+velocity = 5
+
+[sub_resource type="Resource" id="Resource_8h7p5"]
+script = ExtResource("8_txsxe")
+stream = ExtResource("17_xcarf")
+tone = "A"
+octave = 6
+velocity = 5
+
+[sub_resource type="Resource" id="Resource_xo6tx"]
+script = ExtResource("8_txsxe")
+stream = ExtResource("18_oob5i")
+tone = "F"
+octave = 7
+velocity = 5
+
+[sub_resource type="Resource" id="Resource_12tdy"]
+script = ExtResource("8_txsxe")
+stream = ExtResource("19_r2i4t")
+tone = "A"
+octave = 7
+velocity = 5
 
 [node name="MusicManager" type="Node2D"]
 script = ExtResource("1_ib8ey")
@@ -44,3 +134,23 @@ bus = &"Music"
 
 [node name="Timer" type="Timer" parent="."]
 one_shot = true
+
+[node name="Instruments" type="Node2D" parent="."]
+
+[node name="Drops" type="AudioStreamPlayer" parent="Instruments"]
+volume_db = -6.0
+script = ExtResource("7_57v2t")
+samples = Array[ExtResource("8_txsxe")]([SubResource("Resource_63bg3"), SubResource("Resource_qd23o"), SubResource("Resource_87rbm"), SubResource("Resource_oue5b")])
+
+[node name="Piano" type="AudioStreamPlayer" parent="Instruments"]
+volume_db = 4.0
+script = ExtResource("7_57v2t")
+samples = Array[ExtResource("8_txsxe")]([SubResource("Resource_3cd6f"), SubResource("Resource_w4alx"), SubResource("Resource_0xji8"), SubResource("Resource_4cw20"), SubResource("Resource_8h7p5"), SubResource("Resource_xo6tx"), SubResource("Resource_12tdy")])
+env_sustain = 0.5
+env_release = 0.3
+
+[node name="PianoRev" type="AudioStreamPlayer" parent="Instruments"]
+volume_db = 6.0
+bus = &"PianoReverb"
+script = ExtResource("7_57v2t")
+samples = Array[ExtResource("8_txsxe")]([SubResource("Resource_3cd6f"), SubResource("Resource_w4alx"), SubResource("Resource_0xji8"), SubResource("Resource_4cw20"), SubResource("Resource_8h7p5"), SubResource("Resource_xo6tx"), SubResource("Resource_12tdy")])

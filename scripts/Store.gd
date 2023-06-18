@@ -9,12 +9,14 @@ var pearls := 0
 var current_level := 0
 
 signal pearls_updated(value: int)
+signal pearl_obtained
 signal pearls_consumed
 signal change_level(value: int)
 
 func collect_pearl():
   pearls = mini(pearls+ 1, max_pearls)
   pearls_updated.emit(pearls)
+  pearl_obtained.emit()
 
 func can_jump() -> bool:
   return pearls >= jump_cost

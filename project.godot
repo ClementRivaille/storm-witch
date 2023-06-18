@@ -18,6 +18,7 @@ config/icon="res://assets/sprites/witch.png"
 [autoload]
 
 StoreState="*res://scenes/Store.tscn"
+NoteValue="*res://addons/SimpleSampler/note_value.gd"
 
 [display]
 
@@ -27,7 +28,7 @@ window/stretch/mode="viewport"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/coi_serviceworker/plugin.cfg")
+enabled=PackedStringArray("res://addons/coi_serviceworker/plugin.cfg", "res://addons/SimpleSampler/plugin.cfg")
 
 [input]
 

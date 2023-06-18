@@ -28,9 +28,9 @@ background = NodePath("Background/Level1")
 sky = NodePath("Sky/Lvl1")
 lighting = 0
 rain = true
-bird_chance = 0
+bird_chance = 1
 skull_chance = 0
-enemies_frq = Array[float]([4.0, 8.0])
+enemies_frq = Array[float]([0.2, 2.0])
 
 [sub_resource type="Resource" id="Resource_kwa0b"]
 script = ExtResource("2_h4nbr")
@@ -229,3 +229,6 @@ anchor_bottom = 1.0
 offset_top = -100.0
 offset_bottom = 0.0
 grow_vertical = 0
+
+[connection signal="fall" from="Witch" to="MusicManager" method="play_hit"]
+[connection signal="rise_start" from="Witch" to="MusicManager" method="play_chord"]

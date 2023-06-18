@@ -8,10 +8,29 @@ class_name MusicManager
 @onready var store: Store = StoreState
 @onready var timer: Timer = $Timer
 
+@onready var drops: SamplerInstrument = $Instruments/Drops
+@onready var piano: SamplerInstrument = $Instruments/Piano
+@onready var piano_rev: SamplerInstrument = $Instruments/PianoRev
+
 var players: Array[AudioStreamPlayer] = []
 var tween_in: Tween
 var tween_out: Tween
 var playing_level := -1
+
+var levels_notes: Array = [
+  ["A", "C", "D", "F", "E", "G"],
+  ["B", "D", "E", "G", "A", "C"],
+  ["A#", "D", "E", "G", "A"],
+  ["G", "A#", "D", "E", "F#", "A"],
+  ["A", "A#", "D", "E", "G", "C"],
+]
+var chords: Array = [
+  [["A", 5], ["C", 6], ["G", 6], ["A", 6]],
+  [["B", 5], ["D", 6], ["E", 6], ["G", 6]],
+  [["G", 5], ["A#", 5], ["D", 6], ["E", 6]],
+  [["A#", 5], ["D", 6], ["E", 6], ["F#", 6]],
+  [["A", 5], ["D", 6], ["E", 6], ["A", 6]],
+]
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -20,6 +39,7 @@ func _ready() -> void:
     
   timer.wait_time = fade_delay
   store.change_level.connect(play_level)
+  store.pearl_obtained.connect(play_drop)
 
 
 func play_level(level: int) -> void:
@@ -50,3 +70,23 @@ func play_level(level: int) -> void:
       ).set_ease(Tween.EASE_IN_OUT
       ).set_trans(Tween.TRANS_SINE)
 
+func play_drop():
+  var notes = levels_notes[playing_level]
+  var note: String = notes.pick_random()
+  drops.play_note(note, 6)
+
+func play_hit():
+  var notes = levels_notes[playing_level]
+  var noteA: String = notes.pick_random()
+  var noteB: String = notes.pick_random()
+  while noteB == noteA:
+    noteB = notes.pick_random()
+    
+  
+  piano.play_note(noteA, randi_range(6,7))
+  piano.play_note(noteB, randi_range(6,7))
+
+func play_chord():
+  var chord: Array = chords[playing_level]
+  for note in chord:
+    piano_rev.play_note(note[0], note[1])
