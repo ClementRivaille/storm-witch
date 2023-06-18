@@ -14,7 +14,7 @@ var store: Store
 
 var active := false
 var drops: Array[PearlDrop] = []
-var drops_speed := 500
+var drops_speed := 500.0
 
 func _ready() -> void:
   timer.connect("timeout", spawn_drop)

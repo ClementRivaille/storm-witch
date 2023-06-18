@@ -1,0 +1,32 @@
+[gd_scene load_steps=4 format=3 uid="uid://c5y7vs76mvfaq"]
+
+[ext_resource type="Texture2D" uid="uid://dad7vtxsskoyb" path="res://assets/sprites/island.png" id="1_5v2p7"]
+[ext_resource type="Script" path="res://scripts/End.gd" id="1_g83rp"]
+[ext_resource type="AudioStream" uid="uid://c4q3sgdgkg2co" path="res://assets/music/end.wav" id="2_52xsc"]
+
+[node name="End" type="Node2D"]
+script = ExtResource("1_g83rp")
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_52xsc")
+volume_db = -7.0
+bus = &"Music"
+
+[node name="BlackScreen" type="ColorRect" parent="."]
+modulate = Color(1, 1, 1, 0)
+z_index = 4
+offset_right = 1301.0
+offset_bottom = 720.0
+color = Color(0, 0, 0, 1)
+
+[node name="IslandLayer" type="CanvasLayer" parent="."]
+layer = -9
+
+[node name="Sprite2D" type="Sprite2D" parent="IslandLayer"]
+texture_filter = 1
+position = Vector2(1461, 476)
+scale = Vector2(2.5, 2.5)
+texture = ExtResource("1_5v2p7")

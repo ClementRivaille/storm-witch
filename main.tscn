@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3 uid="uid://dywdey6v3mhec"]
+[gd_scene load_steps=33 format=3 uid="uid://dywdey6v3mhec"]
 
 [ext_resource type="Texture2D" uid="uid://bhy4q7epwruwk" path="res://assets/textures/sky_1.png" id="1_vue8f"]
 [ext_resource type="Script" path="res://scripts/Main.gd" id="1_yku23"]
@@ -21,6 +21,7 @@
 [ext_resource type="PackedScene" uid="uid://c1162y6kx1prd" path="res://scenes/Bird.tscn" id="17_bxcmp"]
 [ext_resource type="Script" path="res://scripts/EnemiesSpawner.gd" id="17_pf03v"]
 [ext_resource type="PackedScene" uid="uid://d1rbcw2x511xr" path="res://scenes/Skull.tscn" id="19_ll4tm"]
+[ext_resource type="PackedScene" uid="uid://c5y7vs76mvfaq" path="res://scenes/End.tscn" id="22_u0wi4"]
 
 [sub_resource type="Resource" id="Resource_0teo4"]
 script = ExtResource("2_h4nbr")
@@ -249,6 +250,8 @@ anchor_bottom = 1.0
 offset_top = -100.0
 offset_bottom = 0.0
 grow_vertical = 0
+
+[node name="End" parent="." instance=ExtResource("22_u0wi4")]
 
 [connection signal="fall" from="Witch" to="MusicManager" method="play_hit"]
 [connection signal="rise_start" from="Witch" to="MusicManager" method="play_chord"]

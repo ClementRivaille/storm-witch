@@ -27,7 +27,7 @@ func _ready() -> void:
   player = get_tree().get_first_node_in_group("witch")
   velocity = Vector2(-init_velocity, 0)
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
   if state == SkullState.Coming:
     if global_position.x <= aim_position:
       velocity = Vector2.ZERO
