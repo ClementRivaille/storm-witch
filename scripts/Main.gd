@@ -11,11 +11,15 @@ class_name Main
 @onready var darklight: DirectionalLight2D = $DarkLight
 @onready var rain: GPUParticles2D = $Rain
 @onready var music: MusicManager = $MusicManager
+@onready var ui: UIManager = $CanvasLayer/UI
 
 @onready var store: Store = StoreState
 
 var current_bg: ScrollBackground
 var current_sky: Sprite2D
+
+var game_started := false
+signal on_game_start
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -25,12 +29,19 @@ func _ready() -> void:
   for bg in backgrounds.get_children():
     var background := bg as ScrollBackground
     background.set_bg_visible(false)
-  
-  start_game()
+    switch_level(0)
+    
+func _input(event: InputEvent) -> void:
+  if !game_started && event.is_action_pressed("ui_accept"):
+    start_game()
   
 func start_game():
+  game_started = true
   switch_level(0)
   rain.emitting = true
+  ui.start_game()
+  on_game_start.emit()
+
   
   pearl_spanwer.activate()
   music.play_level(0)
@@ -69,4 +80,5 @@ func switch_level(idx: int):
     rain.visible = false
     pearl_spanwer.deactivate()
     enemies_spawner.deactivate()
+    ui.hide_flask()
 

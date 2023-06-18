@@ -42,7 +42,7 @@ enum AnimationState {
   EnteringDown,
 }
 
-var locked := false
+var locked := true
 var animation := AnimationState.None
 var momentum: float = 0.0
 
@@ -82,6 +82,12 @@ func _physics_process(_delta: float) -> void:
 
   move_and_slide()
   broomSFX.update_sound(r_velocity.y, momentum)
+  
+func on_game_start():
+  locked = false
+  
+func on_game_end():
+  locked = true
   
 func is_falling() -> bool:
   return [

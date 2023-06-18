@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=3 uid="uid://dywdey6v3mhec"]
+[gd_scene load_steps=38 format=3 uid="uid://dywdey6v3mhec"]
 
 [ext_resource type="Texture2D" uid="uid://bhy4q7epwruwk" path="res://assets/textures/sky_1.png" id="1_vue8f"]
 [ext_resource type="Script" path="res://scripts/Main.gd" id="1_yku23"]
@@ -21,7 +21,10 @@
 [ext_resource type="PackedScene" uid="uid://c1162y6kx1prd" path="res://scenes/Bird.tscn" id="17_bxcmp"]
 [ext_resource type="Script" path="res://scripts/EnemiesSpawner.gd" id="17_pf03v"]
 [ext_resource type="PackedScene" uid="uid://d1rbcw2x511xr" path="res://scenes/Skull.tscn" id="19_ll4tm"]
+[ext_resource type="Script" path="res://scripts/UIManager.gd" id="21_w72tb"]
+[ext_resource type="FontFile" uid="uid://sglwxwju1vdo" path="res://assets/fonts/MicroStyle.ttf" id="22_oxsgh"]
 [ext_resource type="PackedScene" uid="uid://c5y7vs76mvfaq" path="res://scenes/End.tscn" id="22_u0wi4"]
+[ext_resource type="FontFile" uid="uid://bgp4ip5awcsmv" path="res://assets/fonts/Serpentine.ttf" id="23_2b0bm"]
 
 [sub_resource type="Resource" id="Resource_0teo4"]
 script = ExtResource("2_h4nbr")
@@ -108,6 +111,12 @@ attractor_interaction_enabled = false
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_w4onl"]
 size = Vector2(1300, 40)
+
+[sub_resource type="FontVariation" id="FontVariation_g3h0v"]
+base_font = ExtResource("22_oxsgh")
+
+[sub_resource type="FontVariation" id="FontVariation_exrvn"]
+base_font = ExtResource("23_2b0bm")
 
 [node name="Main" type="Node2D"]
 texture_filter = 1
@@ -240,9 +249,11 @@ offset_left = 15.0
 offset_bottom = -15.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("21_w72tb")
 metadata/_edit_lock_ = true
 
 [node name="Flask" parent="CanvasLayer/UI" instance=ExtResource("8_nrlv5")]
+visible = false
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
@@ -251,7 +262,84 @@ offset_top = -100.0
 offset_bottom = 0.0
 grow_vertical = 0
 
+[node name="StartScreen" type="Control" parent="CanvasLayer/UI"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/UI/StartScreen"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.139
+anchor_right = 0.5
+anchor_bottom = 0.139
+offset_left = -44.5
+offset_right = 44.5
+offset_bottom = 26.0
+grow_horizontal = 2
+theme_override_fonts/font = SubResource("FontVariation_g3h0v")
+theme_override_font_sizes/font_size = 140
+text = "To Take Off"
+
+[node name="Label2" type="Label" parent="CanvasLayer/UI/StartScreen"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.505
+anchor_right = 0.5
+anchor_bottom = 0.505
+offset_left = -76.5
+offset_top = -26.0
+offset_right = 76.5
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_fonts/font = SubResource("FontVariation_exrvn")
+theme_override_font_sizes/font_size = 40
+text = "Press Space to Start"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label3" type="Label" parent="CanvasLayer/UI/StartScreen"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.15
+anchor_top = 0.889
+anchor_right = 0.183
+anchor_bottom = 0.906
+offset_left = -76.5
+offset_top = -26.0
+offset_right = 76.5
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_fonts/font = SubResource("FontVariation_exrvn")
+theme_override_font_sizes/font_size = 30
+text = "Arrows: Steer"
+vertical_alignment = 1
+
+[node name="Label4" type="Label" parent="CanvasLayer/UI/StartScreen"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.344
+anchor_top = 0.889
+anchor_right = 0.344
+anchor_bottom = 0.906
+offset_left = -76.5
+offset_top = -26.0
+offset_right = 76.5
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_fonts/font = SubResource("FontVariation_exrvn")
+theme_override_font_sizes/font_size = 30
+text = "Space: Boost"
+vertical_alignment = 1
+
 [node name="End" parent="." instance=ExtResource("22_u0wi4")]
 
+[connection signal="on_game_start" from="." to="Witch" method="on_game_start"]
 [connection signal="fall" from="Witch" to="MusicManager" method="play_hit"]
 [connection signal="rise_start" from="Witch" to="MusicManager" method="play_chord"]
+[connection signal="done" from="End" to="Witch" method="on_game_end"]
