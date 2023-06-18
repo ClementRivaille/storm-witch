@@ -1,0 +1,46 @@
+[gd_scene load_steps=7 format=3 uid="uid://c35tqkl4bssf5"]
+
+[ext_resource type="Script" path="res://scripts/MusicManager.gd" id="1_ib8ey"]
+[ext_resource type="AudioStream" uid="uid://ic7eciwwnpxb" path="res://assets/music/level_1.ogg" id="1_vurpj"]
+[ext_resource type="AudioStream" uid="uid://cjhro4q7gj4yx" path="res://assets/music/level_2.ogg" id="2_vro2b"]
+[ext_resource type="AudioStream" uid="uid://8ab0bv2ebr2w" path="res://assets/music/level_3.ogg" id="3_qxqe0"]
+[ext_resource type="AudioStream" uid="uid://cmch0a4lmivcs" path="res://assets/music/level_4.ogg" id="4_6e1ig"]
+[ext_resource type="AudioStream" uid="uid://bbkv4prob5d75" path="res://assets/music/level_5.ogg" id="5_5bka1"]
+
+[node name="MusicManager" type="Node2D"]
+script = ExtResource("1_ib8ey")
+
+[node name="Players" type="Node2D" parent="."]
+
+[node name="Level1" type="AudioStreamPlayer" parent="Players"]
+stream = ExtResource("1_vurpj")
+volume_db = -60.0
+autoplay = true
+bus = &"Music"
+
+[node name="Level2" type="AudioStreamPlayer" parent="Players"]
+stream = ExtResource("2_vro2b")
+volume_db = -60.0
+autoplay = true
+bus = &"Music"
+
+[node name="Level3" type="AudioStreamPlayer" parent="Players"]
+stream = ExtResource("3_qxqe0")
+volume_db = -60.0
+autoplay = true
+bus = &"Music"
+
+[node name="Level4" type="AudioStreamPlayer" parent="Players"]
+stream = ExtResource("4_6e1ig")
+volume_db = -60.0
+autoplay = true
+bus = &"Music"
+
+[node name="Level5" type="AudioStreamPlayer" parent="Players"]
+stream = ExtResource("5_5bka1")
+volume_db = -60.0
+autoplay = true
+bus = &"Music"
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true

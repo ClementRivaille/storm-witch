@@ -1,9 +1,10 @@
-[gd_scene load_steps=29 format=3 uid="uid://dywdey6v3mhec"]
+[gd_scene load_steps=30 format=3 uid="uid://dywdey6v3mhec"]
 
 [ext_resource type="Texture2D" uid="uid://bhy4q7epwruwk" path="res://assets/textures/sky_1.png" id="1_vue8f"]
 [ext_resource type="Script" path="res://scripts/Main.gd" id="1_yku23"]
 [ext_resource type="Script" path="res://scripts/LevelConfiguration.gd" id="2_h4nbr"]
 [ext_resource type="Texture2D" uid="uid://cj61jf5juy1ur" path="res://assets/sprites/particles/rain-drop_1.png" id="3_1wp1n"]
+[ext_resource type="PackedScene" uid="uid://c35tqkl4bssf5" path="res://scenes/MusicManager.tscn" id="3_3y8sp"]
 [ext_resource type="PackedScene" uid="uid://86bl1vogmj8a" path="res://scenes/bg_lvl1.tscn" id="3_4qb4u"]
 [ext_resource type="PackedScene" uid="uid://dv8twkwefv6ah" path="res://scenes/Witch.tscn" id="4_8ogh1"]
 [ext_resource type="Texture2D" uid="uid://cpn770mas3dxh" path="res://assets/textures/sky_2.png" id="5_013wy"]
@@ -92,6 +93,8 @@ texture_filter = 1
 texture_repeat = 2
 script = ExtResource("1_yku23")
 levels = Array[ExtResource("2_h4nbr")]([SubResource("Resource_0teo4"), SubResource("Resource_kwa0b"), SubResource("Resource_386ca"), SubResource("Resource_1gth4")])
+
+[node name="MusicManager" parent="." instance=ExtResource("3_3y8sp")]
 
 [node name="DarkLight" type="DirectionalLight2D" parent="."]
 energy = 0.2

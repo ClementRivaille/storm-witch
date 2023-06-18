@@ -10,6 +10,7 @@ class_name Main
 @onready var skies: CanvasLayer = $Sky
 @onready var darklight: DirectionalLight2D = $DarkLight
 @onready var rain: GPUParticles2D = $Rain
+@onready var music: MusicManager = $MusicManager
 
 @onready var store: Store = StoreState
 
@@ -32,6 +33,7 @@ func start_game():
   rain.emitting = true
   
   pearl_spanwer.activate()
+  music.play_level(0)
   
 func switch_level(idx: int):
   var level := levels[idx]

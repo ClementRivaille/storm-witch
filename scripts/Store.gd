@@ -1,7 +1,7 @@
 extends Node2D
 class_name Store
 
-@export var max_pearls := 10
+@export var max_pearls := 2
 @export var jump_cost := 3
 @export var levelup_cost := 6
 
@@ -22,8 +22,8 @@ func can_jump() -> bool:
 func can_levelup() -> bool:
   return pearls >= max_pearls
   
-func jump(levelup: bool):
-  pearls = maxi(pearls - (levelup_cost if levelup else jump_cost), 0)
+func jump(is_levelup: bool):
+  pearls = maxi(pearls - (levelup_cost if is_levelup else jump_cost), 0)
   pearls_updated.emit(pearls)
   pearls_consumed.emit()
 
