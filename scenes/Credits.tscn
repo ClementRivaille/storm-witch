@@ -1,0 +1,86 @@
+[gd_scene load_steps=4 format=3 uid="uid://vuucx6s7xixe"]
+
+[ext_resource type="Script" path="res://scripts/Credits.gd" id="1_7tkmd"]
+[ext_resource type="FontFile" uid="uid://bgp4ip5awcsmv" path="res://assets/fonts/Serpentine.ttf" id="1_35u7n"]
+
+[sub_resource type="FontVariation" id="FontVariation_k11jb"]
+base_font = ExtResource("1_35u7n")
+
+[node name="EndCredits" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1280.0
+offset_bottom = 720.0
+script = ExtResource("1_7tkmd")
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true
+
+[node name="Slides" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="Slides"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.25
+anchor_right = 0.5
+anchor_bottom = 0.25
+offset_left = -175.0
+offset_right = 175.0
+offset_bottom = 67.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = SubResource("FontVariation_k11jb")
+theme_override_font_sizes/font_size = 80
+text = "To Take Off"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label2" type="Label" parent="Slides"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.122
+anchor_right = 0.5
+anchor_bottom = 0.25
+offset_left = -277.5
+offset_right = 277.5
+offset_bottom = 175.84
+grow_horizontal = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = SubResource("FontVariation_k11jb")
+theme_override_font_sizes/font_size = 80
+text = "Made for the
+Godot Wild Jam 58
+
+“Rain and Shrine”"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label3" type="Label" parent="Slides"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.228
+anchor_right = 0.5
+anchor_bottom = 0.25
+offset_left = -197.5
+offset_right = 197.5
+offset_bottom = 118.16
+grow_horizontal = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = SubResource("FontVariation_k11jb")
+theme_override_font_sizes/font_size = 80
+text = "Developed by
+Itooh"
+horizontal_alignment = 1
+vertical_alignment = 1
