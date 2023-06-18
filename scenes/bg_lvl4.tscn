@@ -20,12 +20,12 @@ z_index = 4
 texture_filter = 1
 texture_repeat = 2
 position = Vector2(0, 720)
+rotation = 3.14159
 scale = Vector2(2.5, 2.5)
 antialiased = true
 texture = ExtResource("2_ag84o")
-texture_offset = Vector2(0, -37)
-texture_scale = Vector2(-1, -1)
-polygon = PackedVector2Array(0, 0, 1024, 0, 1024, -37, 0, -37)
+texture_offset = Vector2(0, 37)
+polygon = PackedVector2Array(0, 0, -1024, 0, -1024, 37, 0, 37)
 
 [node name="Parallax" type="ParallaxBackground" parent="."]
 layer = -5
@@ -65,12 +65,12 @@ script = ExtResource("2_fult0")
 texture_filter = 1
 texture_repeat = 2
 position = Vector2(0, 720)
+rotation = 3.14159
 scale = Vector2(2.5, 2.5)
 antialiased = true
 texture = ExtResource("4_8lhbb")
 texture_offset = Vector2(0, -51)
-texture_scale = Vector2(-1, -1)
-polygon = PackedVector2Array(0, 0, 1024, 0, 1024, -51, 0, -51)
+polygon = PackedVector2Array(0, 0, -1024, 0, -1024, 51, 0, 51)
 
 [node name="Clouds3" type="ParallaxLayer" parent="Parallax"]
 motion_scale = Vector2(0.6, 0.6)
@@ -80,12 +80,12 @@ script = ExtResource("2_fult0")
 texture_filter = 1
 texture_repeat = 2
 position = Vector2(0, 720)
+rotation = 3.14159
 scale = Vector2(2.5, 2.5)
 antialiased = true
 texture = ExtResource("5_l0sq0")
 texture_offset = Vector2(0, -48)
-texture_scale = Vector2(-1, -1)
-polygon = PackedVector2Array(0, 0, 1024, 0, 1024, -48, 0, -48)
+polygon = PackedVector2Array(0, 0, -1024, 0, -1024, 48, 0, 48)
 
 [node name="Clouds2" type="ParallaxLayer" parent="Parallax"]
 motion_scale = Vector2(0.8, 0.8)
@@ -95,9 +95,9 @@ script = ExtResource("2_fult0")
 texture_filter = 1
 texture_repeat = 2
 position = Vector2(0, 720)
+rotation = 3.14159
 scale = Vector2(2.5, 2.5)
 antialiased = true
 texture = ExtResource("6_tbevv")
 texture_offset = Vector2(0, -43)
-texture_scale = Vector2(-1, -1)
-polygon = PackedVector2Array(0, 0, 1024, 0, 1024, -43, 0, -43)
+polygon = PackedVector2Array(0, 0, -1024, 0, -1024, 43, 0, 43)
