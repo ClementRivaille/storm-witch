@@ -22,8 +22,7 @@ func can_jump() -> bool:
   return pearls >= jump_cost
   
 func can_levelup() -> bool:
-#  return pearls >= max_pearls
-  return true
+  return pearls >= max_pearls
   
 func jump(is_levelup: bool):
   pearls = maxi(pearls - (levelup_cost if is_levelup else jump_cost), 0)

@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3 uid="uid://dywdey6v3mhec"]
+[gd_scene load_steps=32 format=3 uid="uid://dywdey6v3mhec"]
 
 [ext_resource type="Texture2D" uid="uid://bhy4q7epwruwk" path="res://assets/textures/sky_1.png" id="1_vue8f"]
 [ext_resource type="Script" path="res://scripts/Main.gd" id="1_yku23"]
@@ -40,7 +40,7 @@ lighting = 0
 rain = true
 bird_chance = 1
 skull_chance = 0
-enemies_frq = Array[float]([1.5, 4.5])
+enemies_frq = Array[float]([1.2, 4.5])
 
 [sub_resource type="Resource" id="Resource_386ca"]
 script = ExtResource("2_h4nbr")
@@ -50,7 +50,27 @@ lighting = 0
 rain = true
 bird_chance = 1
 skull_chance = 0
-enemies_frq = Array[float]([0.8, 3.0])
+enemies_frq = Array[float]([0.5, 2.6])
+
+[sub_resource type="Resource" id="Resource_jffde"]
+script = ExtResource("2_h4nbr")
+background = NodePath("Background/Level4")
+sky = NodePath("Sky/Lvl4")
+lighting = 1
+rain = true
+bird_chance = 2
+skull_chance = 1
+enemies_frq = Array[float]([0.6, 2.9])
+
+[sub_resource type="Resource" id="Resource_ufvw1"]
+script = ExtResource("2_h4nbr")
+background = NodePath("Background/Level5")
+sky = NodePath("Sky/Lvl4")
+lighting = 1
+rain = true
+bird_chance = 4
+skull_chance = 3
+enemies_frq = Array[float]([0.6, 2.5])
 
 [sub_resource type="Resource" id="Resource_1gth4"]
 script = ExtResource("2_h4nbr")
@@ -92,7 +112,7 @@ size = Vector2(1300, 40)
 texture_filter = 1
 texture_repeat = 2
 script = ExtResource("1_yku23")
-levels = Array[ExtResource("2_h4nbr")]([SubResource("Resource_0teo4"), SubResource("Resource_kwa0b"), SubResource("Resource_386ca"), SubResource("Resource_1gth4")])
+levels = Array[ExtResource("2_h4nbr")]([SubResource("Resource_0teo4"), SubResource("Resource_kwa0b"), SubResource("Resource_386ca"), SubResource("Resource_jffde"), SubResource("Resource_ufvw1"), SubResource("Resource_1gth4")])
 
 [node name="MusicManager" parent="." instance=ExtResource("3_3y8sp")]
 
