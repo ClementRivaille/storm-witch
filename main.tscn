@@ -28,7 +28,7 @@ background = NodePath("Background/Level1")
 sky = NodePath("Sky/Lvl1")
 lighting = 0
 rain = true
-bird_chance = 1
+bird_chance = 0
 skull_chance = 0
 enemies_frq = Array[float]([0.2, 2.0])
 

@@ -1,7 +1,9 @@
-[gd_scene load_steps=26 format=3 uid="uid://dv8twkwefv6ah"]
+[gd_scene load_steps=28 format=3 uid="uid://dv8twkwefv6ah"]
 
 [ext_resource type="Script" path="res://scripts/Witch.gd" id="1_ja5gt"]
 [ext_resource type="Texture2D" uid="uid://dsa6d1ld3o6at" path="res://assets/sprites/witch.png" id="2_drw2k"]
+[ext_resource type="AudioStream" uid="uid://2br87vgl5d0b" path="res://assets/sounds/broom_fly.ogg" id="3_72frg"]
+[ext_resource type="Script" path="res://scripts/BroomFX.gd" id="4_4n4te"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_80mhr"]
 size = Vector2(90, 82)
@@ -191,5 +193,15 @@ root_node = NodePath("../..")
 libraries = {
 "": SubResource("AnimationLibrary_3geat")
 }
+
+[node name="BroomFX" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_72frg")
+pitch_scale = 0.4
+autoplay = true
+bus = &"FX"
+script = ExtResource("4_4n4te")
+max_pitch = 1.4
+min_vol = -30.0
+max_vol = 10.0
 
 [connection signal="body_entered" from="Collider" to="." method="on_collider_body_entered"]

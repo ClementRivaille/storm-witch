@@ -51,6 +51,7 @@ var momentum: float = 0.0
 @onready var sprite: Sprite2D = $Sprite
 @onready var store: Store = StoreState
 @onready var animation_state_machine: AnimationNodeStateMachinePlayback
+@onready var broomSFX: BroomFX = $BroomFX
 
 signal collect_pearl
 signal fall
@@ -59,6 +60,7 @@ signal rise_stop
 
 func _ready() -> void:
   animation_state_machine = $AnimationTree.get("parameters/playback")
+  broomSFX.vel_max = max_speed
 
 func _physics_process(_delta: float) -> void:
   if animation == AnimationState.None:
@@ -79,6 +81,7 @@ func _physics_process(_delta: float) -> void:
     debug.text = "Y %s  FT %s" % [global_position.y, global_position.y > fall_through_limit]
 
   move_and_slide()
+  broomSFX.update_sound(r_velocity.y, momentum)
   
 func is_falling() -> bool:
   return [
@@ -135,6 +138,7 @@ func start_rising():
   store.jump(true)
   rise_start.emit()
   set_collision_mask_value(COLLISION_LAYER, false)
+  broomSFX.start_rise()
   
   if (global_position.y < rise_y_threshold):
     animation = AnimationState.Recentering
@@ -163,6 +167,7 @@ func rise_auto():
     if (global_position.y <= rise_y_end):
       set_collision_mask_value(COLLISION_LAYER, true)
       animation = AnimationState.None
+      broomSFX.end_rise()
       rise_stop.emit()
       
 func fall_auto():
