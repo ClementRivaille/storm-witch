@@ -17,6 +17,8 @@ var tween_in: Tween
 var tween_out: Tween
 var playing_level := -1
 
+var last_note: String
+
 var levels_notes: Array = [
   ["A", "C", "D", "F", "E", "G"],
   ["B", "D", "E", "G", "A", "C"],
@@ -73,6 +75,9 @@ func play_level(level: int) -> void:
 func play_drop():
   var notes = levels_notes[playing_level]
   var note: String = notes.pick_random()
+  while note == last_note:
+    note = notes.pick_random()
+  last_note = note
   drops.play_note(note, 6)
 
 func play_hit():
@@ -83,7 +88,7 @@ func play_hit():
     noteB = notes.pick_random()
     
   
-  piano.play_note(noteA, randi_range(6,7))
+  piano.play_note(noteA, 7)
   piano.play_note(noteB, randi_range(6,7))
 
 func play_chord():
