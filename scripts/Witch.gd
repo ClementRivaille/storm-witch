@@ -52,6 +52,9 @@ var momentum: float = 0.0
 @onready var store: Store = StoreState
 @onready var animation_state_machine: AnimationNodeStateMachinePlayback
 @onready var broomSFX: BroomFX = $BroomFX
+@onready var boost_smoke: CPUParticles2D = $BoostSmoke
+@onready var boost_sfx: AudioStreamPlayer = $BoostFX
+@onready var trail: GPUParticles2D = $Sprite/SpeedTrail
 
 signal collect_pearl
 signal fall
@@ -131,6 +134,9 @@ func _input(event: InputEvent) -> void:
       jump()
       
 func jump():
+  boost_sfx.play()
+  boost_smoke.restart()
+  
   locked = true
   velocity.y = -jump_strength
   store.jump(false)
@@ -145,6 +151,10 @@ func start_rising():
   rise_start.emit()
   set_collision_mask_value(COLLISION_LAYER, false)
   broomSFX.start_rise()
+  
+  boost_sfx.play()
+  boost_smoke.restart()
+  trail.emitting = true
   
   if (global_position.y < rise_y_threshold):
     animation = AnimationState.Recentering
@@ -165,6 +175,7 @@ func rise_auto():
     if global_position.y < rise_y_limit:
       # warp down
       position.y = get_viewport_rect().size.y - rise_y_limit
+      trail.restart()
       animation = AnimationState.EnteringUp
       store.levelup()
   elif animation == AnimationState.EnteringUp:
@@ -173,6 +184,7 @@ func rise_auto():
     if (global_position.y <= rise_y_end):
       set_collision_mask_value(COLLISION_LAYER, true)
       animation = AnimationState.None
+      trail.emitting = false
       broomSFX.end_rise()
       rise_stop.emit()
       

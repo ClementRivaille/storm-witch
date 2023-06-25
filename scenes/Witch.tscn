@@ -1,9 +1,43 @@
-[gd_scene load_steps=28 format=3 uid="uid://dv8twkwefv6ah"]
+[gd_scene load_steps=38 format=3 uid="uid://dv8twkwefv6ah"]
 
 [ext_resource type="Script" path="res://scripts/Witch.gd" id="1_ja5gt"]
 [ext_resource type="Texture2D" uid="uid://dsa6d1ld3o6at" path="res://assets/sprites/witch.png" id="2_drw2k"]
 [ext_resource type="AudioStream" uid="uid://2br87vgl5d0b" path="res://assets/sounds/broom_fly.ogg" id="3_72frg"]
 [ext_resource type="Script" path="res://scripts/BroomFX.gd" id="4_4n4te"]
+[ext_resource type="Texture2D" uid="uid://bilvuqmt7a2lh" path="res://assets/sprites/particles/circle_small.png" id="5_3thp1"]
+[ext_resource type="Texture2D" uid="uid://c0qu05g8b1p80" path="res://assets/sprites/particles/circle_large.png" id="5_l376u"]
+[ext_resource type="AudioStream" uid="uid://dhlo2rcvk5max" path="res://assets/sounds/explosion.wav" id="6_asmgl"]
+
+[sub_resource type="Gradient" id="Gradient_4nukg"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0.654902)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_utp55"]
+gradient = SubResource("Gradient_4nukg")
+
+[sub_resource type="Curve" id="Curve_suqao"]
+_data = [Vector2(0, 1), 0.0, -0.191072, 0, 0, Vector2(0.358974, 0.872727), -0.638182, -0.638182, 0, 0, Vector2(1, 0), -2.48182, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_jrlmk"]
+curve = SubResource("Curve_suqao")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_krwbb"]
+particle_flag_disable_z = true
+direction = Vector3(-1, 0, 0)
+spread = 0.0
+gravity = Vector3(0, 0, 0)
+initial_velocity_min = 350.0
+initial_velocity_max = 350.0
+orbit_velocity_min = 0.0
+orbit_velocity_max = 0.0
+damping_min = 54.01
+damping_max = 54.01
+scale_min = 2.5
+scale_max = 2.5
+scale_curve = SubResource("CurveTexture_jrlmk")
+color = Color(0.941176, 0.964706, 1, 0.933333)
+color_ramp = SubResource("GradientTexture1D_utp55")
+turbulence_noise_strength = 5.71
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_80mhr"]
 size = Vector2(90, 82)
@@ -139,9 +173,14 @@ _data = {
 "SteerUp": SubResource("Animation_n72kw")
 }
 
+[sub_resource type="Curve" id="Curve_wkq81"]
+_data = [Vector2(0, 0.190909), 0.0, 0.0, 0, 0, Vector2(0.0299728, 1), 0.0, -0.569624, 0, 0, Vector2(0.99455, 0), -1.70026, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Gradient" id="Gradient_esodd"]
+colors = PackedColorArray(0.909804, 0.94902, 1, 1, 0.909804, 0.94902, 1, 0.811765)
+
 [node name="Witch" type="CharacterBody2D" groups=["witch"]]
-position = Vector2(114, 318)
-scale = Vector2(2.5, 2.5)
 motion_mode = 1
 script = ExtResource("1_ja5gt")
 max_speed = 800.0
@@ -157,6 +196,17 @@ angle_down = 65.0
 [node name="Sprite" type="Sprite2D" parent="."]
 scale = Vector2(2.5, 2.5)
 texture = ExtResource("2_drw2k")
+
+[node name="SpeedTrail" type="GPUParticles2D" parent="Sprite"]
+texture_filter = 2
+position = Vector2(-16.48, 13.12)
+scale = Vector2(0.4, 0.4)
+emitting = false
+amount = 24
+process_material = SubResource("ParticleProcessMaterial_krwbb")
+texture = ExtResource("5_3thp1")
+lifetime = 0.7
+fixed_fps = 24
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-2.2, -1.39999)
@@ -203,5 +253,37 @@ script = ExtResource("4_4n4te")
 max_pitch = 1.4
 min_vol = -30.0
 max_vol = 10.0
+
+[node name="BoostSmoke" type="CPUParticles2D" parent="."]
+texture_filter = 1
+position = Vector2(0, 25)
+scale = Vector2(1, 1)
+emitting = false
+amount = 10
+lifetime = 0.9
+one_shot = true
+explosiveness = 0.96
+randomness = 0.44
+lifetime_randomness = 0.3
+texture = ExtResource("5_l376u")
+emission_shape = 1
+emission_sphere_radius = 20.0
+direction = Vector2(0, 0)
+spread = 180.0
+gravity = Vector2(-200, 0)
+initial_velocity_min = 73.3
+initial_velocity_max = 109.95
+linear_accel_min = -8.38
+linear_accel_max = -8.38
+damping_max = 100.0
+scale_amount_min = 1.5
+scale_amount_max = 3.5
+scale_amount_curve = SubResource("Curve_wkq81")
+color_ramp = SubResource("Gradient_esodd")
+
+[node name="BoostFX" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_asmgl")
+volume_db = 2.6
+bus = &"FX"
 
 [connection signal="body_entered" from="Collider" to="." method="on_collider_body_entered"]
