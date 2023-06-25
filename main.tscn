@@ -1,4 +1,4 @@
-[gd_scene load_steps=39 format=3 uid="uid://dywdey6v3mhec"]
+[gd_scene load_steps=40 format=3 uid="uid://dywdey6v3mhec"]
 
 [ext_resource type="Texture2D" uid="uid://bhy4q7epwruwk" path="res://assets/textures/sky_1.png" id="1_vue8f"]
 [ext_resource type="Script" path="res://scripts/Main.gd" id="1_yku23"]
@@ -26,6 +26,7 @@
 [ext_resource type="PackedScene" uid="uid://c5y7vs76mvfaq" path="res://scenes/End.tscn" id="22_u0wi4"]
 [ext_resource type="FontFile" uid="uid://bgp4ip5awcsmv" path="res://assets/fonts/Serpentine.ttf" id="23_2b0bm"]
 [ext_resource type="PackedScene" uid="uid://vuucx6s7xixe" path="res://scenes/Credits.tscn" id="25_5pl7h"]
+[ext_resource type="PackedScene" uid="uid://dgw3nmmbgh8o0" path="res://scenes/Tutorial.tscn" id="26_wkhk1"]
 
 [sub_resource type="Resource" id="Resource_0teo4"]
 script = ExtResource("2_h4nbr")
@@ -201,7 +202,6 @@ visible = false
 
 [node name="Witch" parent="." instance=ExtResource("4_8ogh1")]
 position = Vector2(114, 350)
-scale = Vector2(1, 1)
 rise_y_threshold = 200.0
 
 [node name="Walls" type="StaticBody2D" parent="."]
@@ -290,9 +290,9 @@ text = "To Take Off"
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.5
-anchor_top = 0.505
+anchor_top = 0.761
 anchor_right = 0.5
-anchor_bottom = 0.505
+anchor_bottom = 0.761
 offset_left = -76.5
 offset_top = -26.0
 offset_right = 76.5
@@ -302,40 +302,6 @@ theme_override_fonts/font = SubResource("FontVariation_exrvn")
 theme_override_font_sizes/font_size = 40
 text = "Press Space to Start"
 horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="Label3" type="Label" parent="CanvasLayer/UI/StartScreen"]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.15
-anchor_top = 0.889
-anchor_right = 0.183
-anchor_bottom = 0.906
-offset_left = -76.5
-offset_top = -26.0
-offset_right = 76.5
-grow_horizontal = 2
-grow_vertical = 0
-theme_override_fonts/font = SubResource("FontVariation_exrvn")
-theme_override_font_sizes/font_size = 30
-text = "Arrows: Steer"
-vertical_alignment = 1
-
-[node name="Label4" type="Label" parent="CanvasLayer/UI/StartScreen"]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.344
-anchor_top = 0.889
-anchor_right = 0.344
-anchor_bottom = 0.906
-offset_left = -76.5
-offset_top = -26.0
-offset_right = 76.5
-grow_horizontal = 2
-grow_vertical = 0
-theme_override_fonts/font = SubResource("FontVariation_exrvn")
-theme_override_font_sizes/font_size = 30
-text = "Space: Boost"
 vertical_alignment = 1
 
 [node name="EndCredits" parent="CanvasLayer/UI" instance=ExtResource("25_5pl7h")]
@@ -376,10 +342,22 @@ text = "Thank you for playing"
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="Tutorial" parent="CanvasLayer/UI" instance=ExtResource("26_wkhk1")]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 0.0
+offset_bottom = 0.0
+grow_horizontal = 2
+grow_vertical = 2
+
 [node name="End" parent="." instance=ExtResource("22_u0wi4")]
 
 [connection signal="on_game_start" from="." to="Witch" method="on_game_start"]
+[connection signal="on_game_start" from="." to="CanvasLayer/UI/Tutorial" method="show_directions"]
 [connection signal="fall" from="Witch" to="MusicManager" method="play_hit"]
+[connection signal="fall" from="Witch" to="CanvasLayer/UI/Tutorial" method="on_fall"]
 [connection signal="rise_start" from="Witch" to="MusicManager" method="play_chord"]
 [connection signal="done" from="End" to="Witch" method="on_game_end"]
 [connection signal="done" from="End" to="CanvasLayer/UI" method="show_thanks"]
