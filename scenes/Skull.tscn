@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://d1rbcw2x511xr"]
+[gd_scene load_steps=5 format=3 uid="uid://d1rbcw2x511xr"]
 
 [ext_resource type="Script" path="res://scripts/Skull.gd" id="1_p0jrs"]
 [ext_resource type="Texture2D" uid="uid://dica532v5o835" path="res://assets/sprites/skull.png" id="2_utdjv"]
+[ext_resource type="AudioStream" uid="uid://d4n0epr1sigq4" path="res://assets/sounds/roar.wav" id="3_xvus7"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_oo1yi"]
 radius = 38.2786
@@ -25,3 +26,9 @@ shape = SubResource("CircleShape2D_oo1yi")
 
 [node name="Timer" type="Timer" parent="."]
 one_shot = true
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_xvus7")
+volume_db = 5.0
+pitch_scale = 1.57
+bus = &"FX"

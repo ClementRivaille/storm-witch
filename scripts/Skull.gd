@@ -12,6 +12,7 @@ class_name Skull
 signal exit
 
 @onready var timer: Timer = $Timer
+@onready var sound: AudioStreamPlayer = $AudioStreamPlayer
 
 var player: Witch
 var state: SkullState = SkullState.Coming
@@ -33,7 +34,7 @@ func _process(_delta: float) -> void:
       velocity = Vector2.ZERO
       aim_and_launch()
       
-  if state == SkullState.Aiming:
+  if state == SkullState.Aiming || state == SkullState.Prelaunch:
     rotation = PI + global_position.angle_to_point(player.global_position)
   
   elif state == SkullState.Launched:
@@ -50,6 +51,7 @@ func aim_and_launch() -> void:
   
   state = SkullState.Prelaunch
   modulate = prelaunch_modulate
+  sound.play()
   timer.wait_time = prelaunch_time
   timer.start()
   await timer.timeout
